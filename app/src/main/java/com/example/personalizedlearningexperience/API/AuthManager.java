@@ -71,7 +71,7 @@ public class AuthManager {
 //        });
 //    }
 
-    private void saveToken(String token) {
+    public void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(JWT_TOKEN_KEY, token);
         editor.apply();
