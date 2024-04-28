@@ -3,6 +3,9 @@ package com.example.personalizedlearningexperience.API;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,8 +80,42 @@ public class AuthManager {
         editor.apply();
     }
 
+    public void resetToken() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(JWT_TOKEN_KEY);
+        editor.apply();
+    }
+
     public String getToken() {
         return sharedPreferences.getString(JWT_TOKEN_KEY, null);
+    }
+
+    public String getJwtProperty(String key) {
+        JWT parsedJWT = new JWT(this.getToken());
+        Claim subscriptionMetaData = parsedJWT.getClaim(key);
+        String parsedValue = subscriptionMetaData.asString();
+        return parsedValue;
+    }
+
+    public Boolean isTokenValid() {
+        if (this.getToken() == null) {
+            return false;
+        }
+
+        try {
+            JWT parsedJWT = new JWT(this.getToken());
+            boolean isExpired = parsedJWT.isExpired(10);
+            if (isExpired) {
+                resetToken();
+                return false;
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 //    public interface AuthCallback {

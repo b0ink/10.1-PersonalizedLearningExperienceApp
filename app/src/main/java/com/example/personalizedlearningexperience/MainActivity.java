@@ -1,5 +1,6 @@
 package com.example.personalizedlearningexperience;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 import com.example.personalizedlearningexperience.API.AuthManager;
 
@@ -50,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         authManager = new AuthManager(this);
 
         // Check if user is logged in
-        if (authManager.getToken() == null) {
-            Intent intent = new Intent(this, AccountRegisterActivity.class);
+        if (authManager.getToken() == null || !authManager.isTokenValid()) {
+            Intent intent = new Intent(this, AccountLoginActivity.class);
             startActivity(intent);
             finish();
         }
+
+
+        tvText.setText("Welcome back, "+authManager.getJwtProperty("username")+"!");
 
 
         btnRegister.setOnClickListener(view -> {
