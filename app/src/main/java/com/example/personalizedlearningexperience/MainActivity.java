@@ -52,16 +52,17 @@ public class MainActivity extends AppCompatActivity {
 
         authManager = new AuthManager(this);
 
-        Intent intent = new Intent(this, InterestsActivity.class);
-        startActivity(intent);
-        finish();
+        // DEBUG -> view InterestsActivity
+//        Intent intent = new Intent(this, InterestsActivity.class);
+//        startActivity(intent);
+//        finish();
 
-//        // Check if user is logged in
-//        if (authManager.getToken() == null || !authManager.isTokenValid()) {
-//            Intent intent = new Intent(this, AccountLoginActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        // Check if user is logged in
+        if (authManager.getToken() == null || !authManager.isTokenValid()) {
+            Intent intent = new Intent(this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
 
