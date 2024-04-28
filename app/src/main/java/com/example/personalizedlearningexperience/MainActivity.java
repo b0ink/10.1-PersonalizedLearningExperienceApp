@@ -19,6 +19,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import com.example.personalizedlearningexperience.API.models.ResponsePost;
+import com.example.personalizedlearningexperience.API.AuthManager;
 
 public class MainActivity extends AppCompatActivity {
 

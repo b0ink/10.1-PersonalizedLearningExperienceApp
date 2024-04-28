@@ -1,8 +1,8 @@
-package com.example.personalizedlearningexperience;
+package com.example.personalizedlearningexperience.API.models;
 
 public class ResponsePost {
-    String status;
-    String message;
+    public String status;
+    public String message;
 
     public ResponsePost(String status, String message){
         this.status = status;

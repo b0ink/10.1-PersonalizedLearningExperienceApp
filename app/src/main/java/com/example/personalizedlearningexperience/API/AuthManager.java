@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperience;
+package com.example.personalizedlearningexperience.API;
 
 import android.content.Context;
 import android.content.SharedPreferences;

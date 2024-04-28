@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperience;
+package com.example.personalizedlearningexperience.API.models;
 
 public class RequestPost {
     String username, fullname, email, confirmEmail, password, confirmPassword, mobileNumber;

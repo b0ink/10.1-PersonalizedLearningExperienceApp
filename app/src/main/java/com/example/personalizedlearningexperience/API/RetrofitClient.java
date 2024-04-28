@@ -1,4 +1,4 @@
-package com.example.personalizedlearningexperience;
+package com.example.personalizedlearningexperience.API;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
