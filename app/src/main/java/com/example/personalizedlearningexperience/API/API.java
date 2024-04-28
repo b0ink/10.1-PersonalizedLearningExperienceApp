@@ -10,14 +10,14 @@ import com.example.personalizedlearningexperience.API.models.ResponsePost;
 
 public interface API {
     @FormUrlEncoded
-    @POST("/login")
+    @POST("users/login")
     Call<ResponsePost> loginUser(
             @Field("username") String username,
             @Field("password") String password
     );
 
     @FormUrlEncoded
-    @POST("register")
+    @POST("users/register")
     Call<ResponsePost> createUser(
             @Field("username") String username,
             @Field("email") String email,
