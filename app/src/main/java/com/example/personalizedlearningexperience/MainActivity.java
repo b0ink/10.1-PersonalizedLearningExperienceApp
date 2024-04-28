@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        tvText.setText("Welcome back, "+authManager.getJwtProperty("username")+"!");
+        tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
 
 
         btnRegister.setOnClickListener(view -> {
