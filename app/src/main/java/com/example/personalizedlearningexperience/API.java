@@ -23,7 +23,7 @@ public interface API {
             @Field("confirmEmail") String confirmEmail,
             @Field("password") String password,
             @Field("confirmPassword") String confirmPassword,
-            @Field("mobileNumber") String mobileNumber
+            @Field("mobile") String mobile
     );
 
     @GET("/protected")
