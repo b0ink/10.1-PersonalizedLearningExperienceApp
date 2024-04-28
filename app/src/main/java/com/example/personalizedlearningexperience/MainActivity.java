@@ -52,12 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         authManager = new AuthManager(this);
 
-        // Check if user is logged in
-        if (authManager.getToken() == null || !authManager.isTokenValid()) {
-            Intent intent = new Intent(this, AccountLoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        Intent intent = new Intent(this, InterestsActivity.class);
+        startActivity(intent);
+        finish();
+
+//        // Check if user is logged in
+//        if (authManager.getToken() == null || !authManager.isTokenValid()) {
+//            Intent intent = new Intent(this, AccountLoginActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+
+
 
 
         tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
