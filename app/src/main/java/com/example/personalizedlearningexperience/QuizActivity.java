@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.personalizedlearningexperience.API.AuthManager;
 import com.example.personalizedlearningexperience.API.RetrofitClient;
@@ -25,7 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     public static final String EXTRA_QUIZ_ID = "extra_quiz_id";
 
     private AuthManager authManager;
-    private TextView tvQuestion1;
+    private TextView tvQuizTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,30 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        if(intent == null || !intent.hasExtra(EXTRA_QUIZ_ID)){
+        if (intent == null || !intent.hasExtra(EXTRA_QUIZ_ID)) {
             finish();
         }
 
-        tvQuestion1 = findViewById(R.id.tvQuestion1);
+        int quizID = intent.getIntExtra(EXTRA_QUIZ_ID, -1);
+
+        if (quizID == -1) {
+            finish();
+            return;
+        }
+
+        tvQuizTopic = findViewById(R.id.tvQuizTopic);
 
         authManager = new AuthManager(this);
         ArrayList<Quiz> quizzes = new ArrayList<>();
+
+
+        ArrayList<QuizQuestion> questions = new ArrayList<>();
+        RecyclerView recycler = findViewById(R.id.recyclerView);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        QuizQuestionAdapter adapter = new QuizQuestionAdapter(this, questions);
+        recycler.setAdapter(adapter);
+
 
         Call<ResponsePost> call = RetrofitClient.getInstance()
                 .getAPI().getUsersQuizzes(authManager.getToken());
@@ -57,7 +75,24 @@ public class QuizActivity extends AppCompatActivity {
                 String quizData = response.body().message;
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
                 //TODO: questionAdapater + recyclerView for the quiz questions
-                tvQuestion1.setText(quizzes.get(0).topic);
+//                tvQuestion1.setText(quizzes.get(0).topic);
+                Quiz selectedQuiz = null;
+                for (Quiz quiz : quizzes) {
+                    if (quiz.id == quizID){
+                        selectedQuiz = quiz;
+                        break;
+                    }
+                }
+
+                if(selectedQuiz == null){
+                    return;
+                }
+
+                tvQuizTopic.setText("AI Generated Quiz:\n"+selectedQuiz.getFormattedTopic());
+
+
+                questions.addAll(selectedQuiz.questions);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

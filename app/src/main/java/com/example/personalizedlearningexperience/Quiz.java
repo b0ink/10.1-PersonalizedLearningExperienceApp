@@ -23,5 +23,7 @@ public class Quiz {
         questions.add(question);
     }
 
-
+    public String getFormattedTopic(){
+        return this.topic.substring(0, 1).toUpperCase() + this.topic.substring(1);
+    }
 }

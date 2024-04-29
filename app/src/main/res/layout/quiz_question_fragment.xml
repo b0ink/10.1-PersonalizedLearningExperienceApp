@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:padding="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <RelativeLayout
+        android:id="@+id/rlQuestionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp">
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is the purpose of the 'this' keyword in JavaScript?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Task Description -->
+
+        <RadioGroup
+            android:id="@+id/rgOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvQuestion"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp">
+
+            <RadioButton
+                android:id="@+id/rbtnOption1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To declare a variable"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To refer to the current object"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To define a function"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="What is the data type of a variable that can hold more than one value in JavaScript"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSubmitAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rgOptions"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#11DE63"
+            android:text="Submit"
+            android:textStyle="bold"
+            app:cornerRadius="6dp" />
+
+
+        <!--        &lt;!&ndash; Edit Button (Options Menu) &ndash;&gt;-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/edit_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:src="@drawable/ic_more_vert_black_24dp" />-->
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

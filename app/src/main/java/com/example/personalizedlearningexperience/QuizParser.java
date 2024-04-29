@@ -33,7 +33,7 @@ public class QuizParser {
                         JSONArray options = questionObject.getJSONArray("options");
                         String correctAnswer = questionObject.getString("answer");
                         ArrayList<String> quizOptions = new ArrayList<>();
-                        System.out.println("New question "+ correctAnswer);
+                        System.out.println("New question "+ correctAnswer + question);
 
                         for(int h = 0; h < options.length();h++){
                             System.out.println("New question option"+ options.getString(h));
@@ -41,7 +41,7 @@ public class QuizParser {
                             quizOptions.add(options.getString(h));
                         }
 
-                        QuizQuestion newQuizQuestion = new QuizQuestion(quizOptions, correctAnswer);
+                        QuizQuestion newQuizQuestion = new QuizQuestion(question, quizOptions, correctAnswer);
                         newQuiz.AddQuestion(newQuizQuestion);
                     }
 
