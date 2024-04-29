@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,6 +57,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         private TextView tvQuizTitle;
         private TextView tvQuizDescription;
         private Button btnAttemptQuiz;
+
+        private LinearLayout layoutSpinner;
+        private TextView tvSpinnerText;
         private ImageView gifSpinner;
 
 
@@ -65,7 +69,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             tvQuizDescription = itemView.findViewById(R.id.tvDescription);
             btnAttemptQuiz = itemView.findViewById(R.id.btnStartQuiz);
             rlTaskView = itemView.findViewById(R.id.rlTaskView);
+
+            layoutSpinner = itemView.findViewById(R.id.layoutSpinner);
             gifSpinner = itemView.findViewById(R.id.gifSpinner);
+            tvSpinnerText = itemView.findViewById(R.id.tvSpinnerText);
         }
 
         public void bind(Quiz quiz){
@@ -73,9 +80,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             ShimmerFrameLayout shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
 
             if(quiz.topic.equals("GENERATING QUIZ...")){
-                tvQuizTitle.setText(quiz.topic);
+                tvQuizTitle.setText("");
                 btnAttemptQuiz.setVisibility(View.GONE);
                 gifSpinner.setVisibility(View.VISIBLE);
+                layoutSpinner.setVisibility(View.VISIBLE);
+                tvSpinnerText.setVisibility(View.VISIBLE);
+
                 tvQuizDescription.setText("");
                 shimmerFrameLayout.startShimmer(); // To start shimmer effect
 
@@ -84,6 +94,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 String quizTopic = quiz.getFormattedTopic();
                 tvQuizTitle.setText(quizTopic);
                 gifSpinner.setVisibility(View.GONE);
+                layoutSpinner.setVisibility(View.GONE);
+                tvSpinnerText.setVisibility(View.GONE);
                 tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
 
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(rlTaskView, "alpha", 0f, 1f);
@@ -99,7 +111,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 //TODO: only apply effect to newly generated tasks
 
                 if(!quiz.loaded){
-                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#89e89f"), Color.parseColor("#FFFFFF"));
+                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#00ffbb"), Color.parseColor("#FFFFFF"));
                     colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
 
                     colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
