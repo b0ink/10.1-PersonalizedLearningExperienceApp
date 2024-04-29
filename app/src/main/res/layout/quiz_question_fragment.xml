@@ -17,10 +17,29 @@
 
         <!-- Task Description -->
 
+        <!-- Priority Pill -->
+
+        <TextView
+            android:id="@+id/tvQuestionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/question_status_background_unanswered"
+            android:minWidth="100dp"
+            android:paddingStart="15dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="4dp"
+            android:text="Unanswered"
+            android:textAlignment="center"
+            android:textColor="#999999" />
+
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tvQuestionStatus"
             android:text="What is the purpose of the 'this' keyword in JavaScript?"
             android:textSize="22sp"
             android:textStyle="bold" />

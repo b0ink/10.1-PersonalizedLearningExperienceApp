@@ -3,6 +3,7 @@ package com.example.personalizedlearningexperience;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
         private TextView tvQuestion;
         private TextView tvExpandTooltip;
 
+        private TextView tvQuestionStatus;
+
         private RadioGroup rgOptions;
         private RadioButton rbtnOption1;
         private RadioButton rbtnOption2;
@@ -69,6 +72,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             rlQuestionView = itemView.findViewById(R.id.rlQuestionView);
             tvQuestion = itemView.findViewById(R.id.tvQuestion);
             tvExpandTooltip = itemView.findViewById(R.id.tvExpandTooltip);
+            tvQuestionStatus = itemView.findViewById(R.id.tvQuestionStatus);
 
             rgOptions = itemView.findViewById(R.id.rgOptions);
             rbtnOption1 = itemView.findViewById(R.id.rbtnOption1);
@@ -100,6 +104,12 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
             if(!isExpanded) collapseRadioGroup();
 
+            rgOptions.setOnCheckedChangeListener((group, checkedID) -> {
+                markAnswered();
+            });
+
+            markUnanswered();
+
             btnSubmitAnswer.setOnClickListener(view -> {
 //                Intent intent = new Intent(view.getContext(), QuizActivity.class);
 //                intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
@@ -107,6 +117,17 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             });
         }
 
+        private void markUnanswered(){
+            tvQuestionStatus.setText("Unanswered");
+            tvQuestionStatus.setTextColor(Color.parseColor("#999999"));
+            tvQuestionStatus.setBackgroundResource(R.drawable.question_status_background_unanswered);
+        }
+
+        private void markAnswered(){
+            tvQuestionStatus.setText("Answered");
+            tvQuestionStatus.setTextColor(Color.parseColor("#FFFFFF"));
+            tvQuestionStatus.setBackgroundResource(R.drawable.question_status_background_answered);
+        }
 
         private void collapseRadioGroup() {
             ObjectAnimator animator = ObjectAnimator.ofFloat(rgOptions, "alpha", 1f, 0f);
