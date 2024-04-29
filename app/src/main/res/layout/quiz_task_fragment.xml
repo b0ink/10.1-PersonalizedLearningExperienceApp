@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shimmer_view_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
     android:padding="16dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    app:shimmer_auto_start="false"
+    app:shimmer_base_color="#FFFFFF"
+    app:shimmer_base_alpha="255"
+    >
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gifSpinner"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginBottom="75dp"
-        android:src="@drawable/ripple_spinner"
-        tools:visibility="gone" />
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/rlTaskView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="25dp">
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginBottom="75dp"
+            android:src="@drawable/ripple_spinner"
+            tools:visibility="gone" />
 
-        <!-- Task Title -->
-        <TextView
-            android:id="@+id/tvTitle"
+        <RelativeLayout
+            android:id="@+id/rlTaskView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Placeholder Task Title"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:padding="25dp">
 
-        <!-- Task Description -->
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvTitle"
-            android:layout_marginTop="8dp"
-            android:text="Placeholder task description"
-            android:textColor="#8B8B8B"
-            android:textSize="16sp" />
+            <!-- Task Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Placeholder Task Title"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnStartQuiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDescription"
-            android:layout_marginTop="15dp"
-            android:backgroundTint="#27BA22"
-            android:text="Start Quiz"
-            android:textStyle="bold"
-            app:cornerRadius="6dp" />
+            <!-- Task Description -->
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginTop="8dp"
+                android:text="Placeholder task description"
+                android:textColor="#8B8B8B"
+                android:textSize="16sp" />
 
-
-        <!--        &lt;!&ndash; Edit Button (Options Menu) &ndash;&gt;-->
-        <!--        <ImageView-->
-        <!--            android:id="@+id/edit_button"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_alignParentTop="true"-->
-        <!--            android:layout_alignParentEnd="true"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:layout_marginEnd="16dp"-->
-        <!--            android:src="@drawable/ic_more_vert_black_24dp" />-->
+            <Button
+                android:id="@+id/btnStartQuiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDescription"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="#27BA22"
+                android:text="Start Quiz"
+                android:textStyle="bold"
+                app:cornerRadius="6dp" />
 
 
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+            <!--        &lt;!&ndash; Edit Button (Options Menu) &ndash;&gt;-->
+            <!--        <ImageView-->
+            <!--            android:id="@+id/edit_button"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_alignParentTop="true"-->
+            <!--            android:layout_alignParentEnd="true"-->
+            <!--            android:layout_marginTop="10dp"-->
+            <!--            android:layout_marginEnd="16dp"-->
+            <!--            android:src="@drawable/ic_more_vert_black_24dp" />-->
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</com.facebook.shimmer.ShimmerFrameLayout>

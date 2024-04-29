@@ -7,6 +7,8 @@ public class Quiz {
     public String topic;
     public ArrayList<QuizQuestion> questions;
 
+    public Boolean loaded = false;
+
     public Quiz(int id, String topic, ArrayList<QuizQuestion> questions) {
         this.id = id;
         this.topic = topic;

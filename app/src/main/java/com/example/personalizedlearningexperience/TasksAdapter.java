@@ -18,6 +18,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+
 import java.util.ArrayList;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHolder> {
@@ -68,13 +70,17 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         public void bind(Quiz quiz){
 //            tvInterestTitle.setText(quiz);
+            ShimmerFrameLayout shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
+
             if(quiz.topic.equals("GENERATING QUIZ...")){
                 tvQuizTitle.setText(quiz.topic);
                 btnAttemptQuiz.setVisibility(View.GONE);
                 gifSpinner.setVisibility(View.VISIBLE);
                 tvQuizDescription.setText("");
+                shimmerFrameLayout.startShimmer(); // To start shimmer effect
 
             }else{
+                shimmerFrameLayout.stopShimmer();
                 String quizTopic = quiz.getFormattedTopic();
                 tvQuizTitle.setText(quizTopic);
                 gifSpinner.setVisibility(View.GONE);
@@ -91,17 +97,22 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
                 // "flash" the card on load
                 //TODO: only apply effect to newly generated tasks
-                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#89e89f"), Color.parseColor("#FFFFFF"));
-                colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
 
-                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animator) {
-                        rlTaskView.setBackgroundColor((int) animator.getAnimatedValue());
-                    }
-                });
+                if(!quiz.loaded){
+                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#89e89f"), Color.parseColor("#FFFFFF"));
+                    colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
 
-                colorAnimation.start();
+                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animator) {
+                            rlTaskView.setBackgroundColor((int) animator.getAnimatedValue());
+                        }
+                    });
+
+                    colorAnimation.start();
+                    quiz.loaded = true;
+                }
+
             }
 
 

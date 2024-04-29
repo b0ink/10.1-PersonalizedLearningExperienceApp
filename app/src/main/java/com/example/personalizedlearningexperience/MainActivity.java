@@ -131,12 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(quizData);
 
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
+                for(Quiz quiz : quizzes){
+                    quiz.loaded = true;
+                }
                 Collections.reverse(quizzes); // Newest at top
 
                 if (quizzes.size() < 3 && interests.size() > 0) {
                     String randomTopic = interests.get(new Random().nextInt(interests.size()));
 
                     Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
+                    placeholderQuiz.loaded = true;
                     quizzes.add(0, placeholderQuiz);
                     adapter.notifyItemInserted(0);
 
@@ -159,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponsePost> newQuizCall, Throwable throwable) {
+                            System.out.println(throwable.getMessage());
                             quizzes.remove(0);
                             adapter.notifyItemRemoved(0);
                             Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
