@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,6 +51,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         private TextView tvQuizTitle;
         private TextView tvQuizDescription;
         private Button btnAttemptQuiz;
+        private ImageView gifSpinner;
 
 
         public TasksViewHolder(@NonNull View itemView){
@@ -58,16 +60,20 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             tvQuizDescription = itemView.findViewById(R.id.tvDescription);
             btnAttemptQuiz = itemView.findViewById(R.id.btnStartQuiz);
             rlTaskView = itemView.findViewById(R.id.rlTaskView);
+            gifSpinner = itemView.findViewById(R.id.gifSpinner);
         }
 
         public void bind(Quiz quiz){
 //            tvInterestTitle.setText(quiz);
-            if(quiz.topic.equals("Generating your personalised quiz...")){
+            if(quiz.topic.equals("GENERATING QUIZ...")){
                 tvQuizTitle.setText(quiz.topic);
                 btnAttemptQuiz.setVisibility(View.GONE);
+                gifSpinner.setVisibility(View.VISIBLE);
                 tvQuizDescription.setText("");
+
             }else{
                 tvQuizTitle.setText("Quiz: " + quiz.topic);
+                gifSpinner.setVisibility(View.GONE);
                 tvQuizDescription.setText("AI generated quiz about the topic " + quiz.topic + "!");
             }
 

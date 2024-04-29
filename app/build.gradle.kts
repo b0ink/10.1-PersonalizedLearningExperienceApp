@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.auth0.android:jwtdecode:2.0.2")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
