@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO: save interests in preferences, if none exist, redirect to interestsAcitivity to select new ones
 
+//        -> create new quiz -> on response, reload activity using:
+//        finish();
+//        startActivity(getIntent());
+
+
         ArrayList<Quiz> quizzes = new ArrayList<>();
 //        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
         RecyclerView recycler = findViewById(R.id.tasksRecyclerView);
@@ -103,14 +108,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 if(!response.isSuccessful()){
+                    System.out.println("Error occurred!");
                     return;
                 }
 
                 String quizData = response.body().message;
-                ArrayList<String> topics = parseQuizTopics(quizData);
-                for(String topic : topics){
-                    quizzes.add(new Quiz(0, topic, new ArrayList<>()));
-                }
+                System.out.println(quizData);
+
+                quizzes.addAll(parseQuizzes(quizData));
+
 
                 //TODO: if quiz list is empty, generate a new quiz
                 //TODO: refer to localStorage if this topic has been completed, to generate a new one
@@ -119,26 +125,83 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponsePost> call, Throwable throwable) {
+                System.out.println("BAD ERROR" + throwable.getMessage());
 
             }
         });
 
     }
 
-    public static ArrayList<String> parseQuizTopics(String json) {
-        ArrayList<String> quizTopics = new ArrayList<>();
+    public static ArrayList<Quiz> parseQuizzes(String json) {
+        System.out.println(json);
+        ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
-            // Read JSON file from assets folder
             if (json != null) {
                 JSONObject jsonObject = new JSONObject(json);
-                JSONArray jsonArray = jsonObject.getJSONArray("Topics");
+                JSONArray jsonArray = jsonObject.getJSONArray("QuizData");
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    quizTopics.add(jsonArray.getString(i));
+
+
+                    JSONObject quiz = jsonArray.getJSONObject(i);
+                    int id = quiz.getInt("id");
+                    String topic = quiz.getString("Topic");
+                    JSONArray questions = new JSONArray(quiz.getString("Questions"));
+
+//                    JSONArray questions = quiz.getJSONArray("Questions");
+                    Quiz newQuiz = new Quiz(id, topic);
+
+                    System.out.println("New quiz " + id + topic);
+
+                    for(int g = 0; g < questions.length();g++){
+                        JSONObject questionObject = questions.getJSONObject(g);
+                        String question = questionObject.getString("question");
+                        JSONArray options = questionObject.getJSONArray("options");
+                        String correctAnswer = questionObject.getString("answer");
+                        ArrayList<String> quizOptions = new ArrayList<>();
+                        System.out.println("New question "+ correctAnswer);
+
+                        for(int h = 0; h < options.length();h++){
+                            System.out.println("New question option"+ options.getString(h));
+
+                            quizOptions.add(options.getString(h));
+                        }
+
+                        QuizQuestion newQuizQuestion = new QuizQuestion(quizOptions, correctAnswer);
+                        newQuiz.AddQuestion(newQuizQuestion);
+                    }
+
+
+//                    String quizJSON = jsonArray.getString(2);
+//                    ArrayList<QuizQuestion> questions = parseQuizQuestions(quizJSON);
+
+//                    Quiz newQuiz = new Quiz()
+                    quizzes.add(newQuiz);
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return quizTopics;
+        return quizzes;
     }
+
+//    public static ArrayList<QuizQuestion> parseQuizQuestions(String json) {
+//        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
+//        try {
+//            if (json != null) {
+//                JSONArray jsonArray = new JSONArray(json);
+////                JSONArray jsonArray = jsonObject.getJSONArray("Topics");
+//                for (int i = 0; i < jsonArray.length(); i++) {
+//                    JSONObject questionObject = jsonArray.getJSONObject(i);
+//
+//                    String question = questionObject.getString("Topic");
+//                    JSONArray questions = questionObject.getJSONArray("Questions");
+//
+//                    quizQuestions.add(jsonArray.getString(i));
+//                }
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return quizTopics;
+//    }
 }

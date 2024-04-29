@@ -13,4 +13,15 @@ public class Quiz {
         this.questions = questions;
     }
 
+    public Quiz(int id, String topic) {
+        this.id = id;
+        this.topic = topic;
+        questions = new ArrayList<>();
+    }
+
+    public void AddQuestion(QuizQuestion question){
+        questions.add(question);
+    }
+
+
 }
