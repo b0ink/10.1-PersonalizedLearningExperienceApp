@@ -2,6 +2,7 @@ package com.example.personalizedlearningexperience;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,8 @@ import java.util.Collections;
 
 public class InterestsActivity extends AppCompatActivity {
 
+    private Button btnContinue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class InterestsActivity extends AppCompatActivity {
             return insets;
         });
 
+        btnContinue = findViewById(R.id.btnContinue);
 
         ArrayList<String> interests = new ArrayList<>();
         interests.add("Web Development");

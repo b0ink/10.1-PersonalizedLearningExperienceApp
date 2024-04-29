@@ -35,12 +35,24 @@
             android:text="Select up to 10 interests."
             android:textAlignment="center" />
 
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:width="200dp"
+            android:gravity="center|center_horizontal"
+            android:text="Continue" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="1dp"
-            app:layout_wrapBehaviorInParent="vertical_only" />
+            app:layout_wrapBehaviorInParent="vertical_only">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
