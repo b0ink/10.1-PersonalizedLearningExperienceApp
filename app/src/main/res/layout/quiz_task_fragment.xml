@@ -6,17 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:padding="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:shimmer_auto_start="false"
-    app:shimmer_base_color="#FFFFFF"
     app:shimmer_base_alpha="255"
-    >
+    app:shimmer_base_color="#FFFFFF">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
         <LinearLayout
             android:id="@+id/layoutSpinner"
