@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_rowSpan="1"
     android:layout_gravity="fill"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:padding="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp">
@@ -13,14 +14,17 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/tvInterestTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Placeholder Task Title"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
 
