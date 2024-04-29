@@ -38,6 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(quizData);
 
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
+                Collections.reverse(quizzes); // Newest at top
 
                 if (quizzes.size() < 3 && interests.size() > 0) {
                     String randomTopic = interests.get(new Random().nextInt(interests.size()));
