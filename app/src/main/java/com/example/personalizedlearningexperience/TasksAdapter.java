@@ -76,7 +76,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
                 tvQuizTitle.setText(quizTopic);
                 gifSpinner.setVisibility(View.GONE);
-                tvQuizDescription.setText("AI generated quiz about the topic " + quiz.topic + "!");
+                tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
             }
 
 
