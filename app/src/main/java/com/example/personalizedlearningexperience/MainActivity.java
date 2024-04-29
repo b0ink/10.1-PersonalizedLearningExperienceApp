@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println(authManager.getToken());
 
-        tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
+        tvText.setText("Welcome back, \n" + authManager.getJwtProperty("username") + "!");
 
 
         //TODO: save interests in preferences, if none exist, redirect to interestsAcitivity to select new ones
