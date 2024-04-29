@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,21 +72,23 @@ public class MainActivity extends AppCompatActivity {
 //        finish();
 
 
-
 //        // Check if user is logged in
         if (authManager.getToken() == null || !authManager.isTokenValid()) {
             Intent intent = new Intent(this, AccountLoginActivity.class);
             startActivity(intent);
             finish();
+            return;
         }
 
         // Check for enough topics/interests have been set
         ArrayList<String> interests = authManager.getInterests();
-        if(interests.size() < 3){
+        if (interests == null || interests.size() < 3) {
             Intent intent = new Intent(this, InterestsActivity.class);
             startActivity(intent);
             finish();
+            return;
         }
+
 
         //TODO: if no quizzes -> call API with one of user's interest to generate new quiz
         //TODO: API creates empty row first, calls Llama, populates row with response
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponsePost>() {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     System.out.println("Error occurred!");
                     return;
                 }
@@ -127,6 +130,24 @@ public class MainActivity extends AppCompatActivity {
 
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
 
+                if (quizzes.size() < 3 && interests.size() > 0) {
+                    String randomTopic = interests.get(new Random().nextInt(interests.size()));
+
+                    Call<ResponsePost> newQuizCall = RetrofitClient.getInstance()
+                            .getAPI().createNewQuiz(authManager.getToken(), randomTopic);
+                    call.enqueue(new Callback<ResponsePost>() {
+                        @Override
+                        public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponsePost> call, Throwable throwable) {
+
+                        }
+                    });
+                }
 
                 //TODO: if quiz list is empty, generate a new quiz
                 //TODO: refer to localStorage if this topic has been completed, to generate a new one
@@ -141,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 //    public static ArrayList<QuizQuestion> parseQuizQuestions(String json) {

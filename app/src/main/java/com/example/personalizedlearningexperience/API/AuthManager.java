@@ -9,6 +9,7 @@ import com.auth0.android.jwt.JWT;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -81,20 +82,23 @@ public class AuthManager {
 
 
     public ArrayList<String> getInterests() {
+        ArrayList<String> topics = new ArrayList<>();
         String jsonString = sharedPreferences.getString("interests", null);
-        try {
-            JSONArray jsonArray = new JSONArray(jsonString);
-            ArrayList<String> topics = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                topics.add(jsonArray.getString(i));
-            }
-            return topics;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        System.out.println(jsonString);
+        String result = jsonString.substring(1, jsonString.length() - 1);
+
+        String[] parts = result.split(",");
+        for (int i = 0; i < parts.length; i++) {
+            topics.add(parts[i]);
         }
 
-        return null;
+        return topics;
+    }
 
+    public void saveInterests(ArrayList<String> topics) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("interests", topics.toString());
+        editor.apply();
     }
 
     public void saveToken(String token) {

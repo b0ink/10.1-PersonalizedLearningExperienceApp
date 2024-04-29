@@ -16,16 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.personalizedlearningexperience.API.AuthManager;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.InterestsViewHolder> {
 
     public ArrayList<String> interests;
-    private ArrayList<String> selectedInterests  = new ArrayList<>();
+    private ArrayList<String> selectedInterests = new ArrayList<>();
 
 
-    public InterestsAdapter(Context context, ArrayList<String> interests){
+    public InterestsAdapter(Context context, ArrayList<String> interests) {
         this.interests = interests;
     }
 
@@ -53,7 +55,8 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
         private RelativeLayout rlInterestItem;
 
         ArrayList<String> selectedInterests;
-        public InterestsViewHolder(@NonNull View itemView, ArrayList<String> selectedInterests){
+
+        public InterestsViewHolder(@NonNull View itemView, ArrayList<String> selectedInterests) {
             super(itemView);
             tvInterestTitle = itemView.findViewById(R.id.tvInterestTitle);
             rlInterestItem = itemView.findViewById(R.id.rlInterestItem);
@@ -61,17 +64,17 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
         }
 
         @SuppressLint("ResourceAsColor")
-        public void bind(String interest){
+        public void bind(String interest) {
             tvInterestTitle.setText(interest);
             rlInterestItem.setOnClickListener(view -> {
                 int index = selectedInterests.indexOf(tvInterestTitle.getText().toString());
-                if(index != -1){
+                if (index != -1) {
 //                    notifyItemMoved(getAdapterPosition(),   selectedInterests.size());
                     selectedInterests.remove(index);
                     view.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     tvInterestTitle.setTextColor(Color.parseColor("#000000"));
-                }else{
-                    if(selectedInterests.size() >= 10){
+                } else {
+                    if (selectedInterests.size() >= 10) {
                         Toast.makeText(view.getContext(), "You cannot select more than 10 topics!", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -86,17 +89,18 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
                     tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
                 }
 
-                SharedPreferences sharePref = view.getContext().getSharedPreferences("interests", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharePref.edit();
-                editor.putString("interests", selectedInterests.toString());
-                editor.apply();
-
+//                SharedPreferences sharePref = view.getContext().getSharedPreferences("interests", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharePref.edit();
+//                editor.putString("interests", selectedInterests.toString());
+//                editor.apply();
+                AuthManager authManager = new AuthManager(view.getContext());
+                authManager.saveInterests(selectedInterests);
             });
 
-            if(selectedInterests.contains(interest)){
+            if (selectedInterests.contains(interest)) {
                 rlInterestItem.setBackgroundColor(androidx.cardview.R.color.cardview_shadow_start_color);
                 tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
-            }else{
+            } else {
                 rlInterestItem.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 tvInterestTitle.setTextColor(Color.parseColor("#000000"));
             }
