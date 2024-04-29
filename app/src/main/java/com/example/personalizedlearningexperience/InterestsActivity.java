@@ -1,5 +1,6 @@
 package com.example.personalizedlearningexperience;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -37,11 +38,19 @@ public class InterestsActivity extends AppCompatActivity {
 
         btnContinue = findViewById(R.id.btnContinue);
 
+        btnContinue.setOnClickListener(view -> {
+            Intent intent = new Intent(InterestsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
         ArrayList<String> interests = new ArrayList<>();
         interests.add("Web Development");
         interests.add("JavaScript");
         interests.add("Mobile App Development");
         interests.add("PHP");
+        interests.add("Linear Algebra");
+        interests.add("Discrete Math");
 
         // Additional interests
         interests.add("Python");

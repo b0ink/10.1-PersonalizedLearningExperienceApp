@@ -66,16 +66,16 @@ public class MainActivity extends AppCompatActivity {
         authManager = new AuthManager(this);
 
         // DEBUG -> view InterestsActivity
-        Intent intent = new Intent(this, InterestsActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this, InterestsActivity.class);
+//        startActivity(intent);
+//        finish();
 
 //        // Check if user is logged in
-//        if (authManager.getToken() == null || !authManager.isTokenValid()) {
-//            Intent intent = new Intent(this, AccountLoginActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if (authManager.getToken() == null || !authManager.isTokenValid()) {
+            Intent intent = new Intent(this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         //TODO: if no quizzes -> call API with one of user's interest to generate new quiz
         //TODO: API creates empty row first, calls Llama, populates row with response
