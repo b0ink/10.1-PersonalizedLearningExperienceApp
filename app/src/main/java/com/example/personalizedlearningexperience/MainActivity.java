@@ -64,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        //TODO: if no quizzes -> call API with one of user's interest to generate new quiz
+        //TODO: API creates empty row first, calls Llama, populates row with response
+        //TODO: this way no additional quizzes are made until the initial call is complete
 
-
+        System.out.println(authManager.getToken());
 
         tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
 
