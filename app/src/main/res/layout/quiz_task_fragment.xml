@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Placeholder Task Title"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <!-- Task Description -->
@@ -41,6 +41,7 @@
             android:layout_below="@id/tvTitle"
             android:layout_marginTop="8dp"
             android:text="Placeholder task description"
+            android:textColor="#8B8B8B"
             android:textSize="16sp" />
 
         <Button
@@ -48,7 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvDescription"
-            android:text="Attempt quiz" />
+            android:layout_marginTop="15dp"
+            android:backgroundTint="#11DE63"
+            android:text="Start Quiz"
+            android:textStyle="bold"
+            app:cornerRadius="6dp" />
 
 
         <!--        &lt;!&ndash; Edit Button (Options Menu) &ndash;&gt;-->
