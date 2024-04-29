@@ -6,6 +6,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 
 public interface API {
@@ -30,4 +33,7 @@ public interface API {
     // Retrieve all quizzes for user
     @GET("quiz")
     Call<ResponsePost> getUsersQuizzes(@Header("Authorization") String token);
+
+    @GET("quiz/create")
+    Call<ResponsePost> createNewQuiz(@Header("Authorization") String token, @Query("query") String topic);
 }

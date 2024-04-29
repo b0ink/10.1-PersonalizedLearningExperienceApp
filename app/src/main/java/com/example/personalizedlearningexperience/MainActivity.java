@@ -133,18 +133,32 @@ public class MainActivity extends AppCompatActivity {
                 if (quizzes.size() < 3 && interests.size() > 0) {
                     String randomTopic = interests.get(new Random().nextInt(interests.size()));
 
+                    Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
+                    quizzes.add(0, placeholderQuiz);
+                    adapter.notifyItemInserted(0);
+
                     Call<ResponsePost> newQuizCall = RetrofitClient.getInstance()
                             .getAPI().createNewQuiz(authManager.getToken(), randomTopic);
-                    call.enqueue(new Callback<ResponsePost>() {
+                    newQuizCall.enqueue(new Callback<ResponsePost>() {
                         @Override
-                        public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                            finish();
-                            startActivity(getIntent());
+                        public void onResponse(Call<ResponsePost> newQuizCall, Response<ResponsePost> response) {
+                            String jsonString = response.body().message;
+                            ArrayList<Quiz> newQuizzes = QuizParser.parseQuizzes(jsonString);
+                            quizzes.remove(0);
+//                            adapter.notifyItemRemoved(0);
+                            quizzes.add(0, newQuizzes.get(0)); // TODO error handle
+//                            adapter.notifyItemInserted(0);
+                            adapter.notifyItemChanged(0);
+
+//                            finish();
+//                            startActivity(getIntent());
                         }
 
                         @Override
-                        public void onFailure(Call<ResponsePost> call, Throwable throwable) {
-
+                        public void onFailure(Call<ResponsePost> newQuizCall, Throwable throwable) {
+                            quizzes.remove(0);
+                            adapter.notifyItemRemoved(0);
+                            Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
