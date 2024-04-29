@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -25,6 +28,8 @@ import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 import com.example.personalizedlearningexperience.API.AuthManager;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        btnRegister = findViewById(R.id.register);
-        btnApiCall = findViewById(R.id.apicall);
+//        btnRegister = findViewById(R.id.register);
+//        btnApiCall = findViewById(R.id.apicall);
         tvText = findViewById(R.id.textView);
 
         authManager = new AuthManager(this);
@@ -73,13 +78,15 @@ public class MainActivity extends AppCompatActivity {
         tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
 
 
-        btnRegister.setOnClickListener(view -> {
+        ArrayList<Quiz> quizzes = new ArrayList<>();
+        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
+        RecyclerView recycler = findViewById(R.id.tasksRecyclerView);
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        });
+        TasksAdapter adapter = new TasksAdapter(this, quizzes);
+        recycler.setAdapter(adapter);
 
-        btnApiCall.setOnClickListener(view -> {
 
 
-        });
     }
 }
