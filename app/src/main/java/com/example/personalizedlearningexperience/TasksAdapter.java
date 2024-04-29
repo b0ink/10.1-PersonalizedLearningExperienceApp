@@ -1,5 +1,8 @@
 package com.example.personalizedlearningexperience;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -76,6 +79,29 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 tvQuizTitle.setText(quizTopic);
                 gifSpinner.setVisibility(View.GONE);
                 tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
+
+//                ObjectAnimator animator = ObjectAnimator.ofFloat(rlTaskView, "alpha", 0f, 1f);
+//                animator.setDuration(1000);
+//                animator.start();
+
+
+//                int greenColor = getResources().getColor(R.color.green); // Change to your green color resource
+//                int whiteColor = getResources().getColor(android.R.color.white); // Default white color
+//
+
+                // "flash" the card on load
+                //TODO: only apply effect to newly generated tasks
+                ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#89e89f"), Color.parseColor("#FFFFFF"));
+                colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
+
+                colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animator) {
+                        rlTaskView.setBackgroundColor((int) animator.getAnimatedValue());
+                    }
+                });
+
+                colorAnimation.start();
             }
 
 
