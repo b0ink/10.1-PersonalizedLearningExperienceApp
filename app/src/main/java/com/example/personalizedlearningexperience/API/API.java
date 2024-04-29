@@ -27,6 +27,7 @@ public interface API {
             @Field("mobile") String mobile
     );
 
-    @GET("/protected")
-    Call<ResponsePost> getProtectedResource(@Header("Authorization") String token);
+    // Retrieve all quizzes for user
+    @GET("quiz")
+    Call<ResponsePost> getUsersQuizzes(@Header("Authorization") String token);
 }

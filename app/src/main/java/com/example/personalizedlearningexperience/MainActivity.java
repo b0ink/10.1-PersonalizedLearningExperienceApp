@@ -1,6 +1,7 @@
 package com.example.personalizedlearningexperience;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
@@ -26,8 +29,13 @@ import retrofit2.http.POST;
 
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
+import com.example.personalizedlearningexperience.API.RetrofitClient;
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 import com.example.personalizedlearningexperience.API.AuthManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -78,15 +86,59 @@ public class MainActivity extends AppCompatActivity {
         tvText.setText("Welcome back, " + authManager.getJwtProperty("username") + "!");
 
 
+        //TODO: save interests in preferences, if none exist, redirect to interestsAcitivity to select new ones
+
         ArrayList<Quiz> quizzes = new ArrayList<>();
-        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
+//        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
         RecyclerView recycler = findViewById(R.id.tasksRecyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         TasksAdapter adapter = new TasksAdapter(this, quizzes);
         recycler.setAdapter(adapter);
 
+        Call<ResponsePost> call = RetrofitClient.getInstance()
+                .getAPI().getUsersQuizzes(authManager.getToken());
 
+        call.enqueue(new Callback<ResponsePost>() {
+            @Override
+            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                if(!response.isSuccessful()){
+                    return;
+                }
 
+                String quizData = response.body().message;
+                ArrayList<String> topics = parseQuizTopics(quizData);
+                for(String topic : topics){
+                    quizzes.add(new Quiz(0, topic, new ArrayList<>()));
+                }
+
+                //TODO: if quiz list is empty, generate a new quiz
+                //TODO: refer to localStorage if this topic has been completed, to generate a new one
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePost> call, Throwable throwable) {
+
+            }
+        });
+
+    }
+
+    public static ArrayList<String> parseQuizTopics(String json) {
+        ArrayList<String> quizTopics = new ArrayList<>();
+        try {
+            // Read JSON file from assets folder
+            if (json != null) {
+                JSONObject jsonObject = new JSONObject(json);
+                JSONArray jsonArray = jsonObject.getJSONArray("Topics");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    quizTopics.add(jsonArray.getString(i));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return quizTopics;
     }
 }
