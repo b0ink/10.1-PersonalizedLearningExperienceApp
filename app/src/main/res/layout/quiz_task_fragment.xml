@@ -22,7 +22,7 @@
         android:id="@+id/rlTaskView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="25dp">
 
         <!-- Task Title -->
         <TextView
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvDescription"
             android:layout_marginTop="15dp"
-            android:backgroundTint="#11DE63"
+            android:backgroundTint="#27BA22"
             android:text="Start Quiz"
             android:textStyle="bold"
             app:cornerRadius="6dp" />
