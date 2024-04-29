@@ -1,6 +1,7 @@
 package com.example.personalizedlearningexperience;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 //            tvInterestTitle.setText(quiz);
             tvQuizTitle.setText("Quiz: " + quiz.topic);
             tvQuizDescription.setText("AI generated quiz about the topic " + quiz.topic + "!");
+
+            btnAttemptQuiz.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), QuizActivity.class);
+                intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
+                view.getContext().startActivity(intent);
+            });
         }
 
     }

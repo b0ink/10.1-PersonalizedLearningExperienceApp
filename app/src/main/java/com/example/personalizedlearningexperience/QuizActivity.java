@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class QuizActivity extends AppCompatActivity {
 
-    public final String EXTRA_QUIZ_ID = "extra_quiz_id";
+    public static final String EXTRA_QUIZ_ID = "extra_quiz_id";
 
     private AuthManager authManager;
     private TextView tvQuestion1;
@@ -57,7 +57,7 @@ public class QuizActivity extends AppCompatActivity {
                 String quizData = response.body().message;
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
                 //TODO: questionAdapater + recyclerView for the quiz questions
-//                tvQuestion1.setText(quizzes);
+                tvQuestion1.setText(quizzes.get(0).topic);
             }
 
             @Override
