@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -70,7 +71,10 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
                     view.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     tvInterestTitle.setTextColor(Color.parseColor("#000000"));
                 }else{
-
+                    if(selectedInterests.size() >= 10){
+                        Toast.makeText(view.getContext(), "You cannot select more than 10 topics!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     selectedInterests.add(tvInterestTitle.getText().toString());
                     System.out.println(selectedInterests.toString());
 
