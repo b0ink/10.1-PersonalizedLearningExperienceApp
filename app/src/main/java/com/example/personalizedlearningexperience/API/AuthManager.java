@@ -6,6 +6,11 @@ import android.content.SharedPreferences;
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -73,6 +78,24 @@ public class AuthManager {
 //            }
 //        });
 //    }
+
+
+    public ArrayList<String> getInterests() {
+        String jsonString = sharedPreferences.getString("interests", null);
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            ArrayList<String> topics = new ArrayList<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                topics.add(jsonArray.getString(i));
+            }
+            return topics;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 
     public void saveToken(String token) {
         SharedPreferences.Editor editor = sharedPreferences.edit();

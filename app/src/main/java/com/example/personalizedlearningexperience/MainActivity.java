@@ -70,9 +70,19 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(intent);
 //        finish();
 
+
+
 //        // Check if user is logged in
         if (authManager.getToken() == null || !authManager.isTokenValid()) {
             Intent intent = new Intent(this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        // Check for enough topics/interests have been set
+        ArrayList<String> interests = authManager.getInterests();
+        if(interests.size() < 3){
+            Intent intent = new Intent(this, InterestsActivity.class);
             startActivity(intent);
             finish();
         }
