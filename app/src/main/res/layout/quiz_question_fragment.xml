@@ -15,19 +15,19 @@
         android:layout_height="wrap_content"
         android:padding="25dp">
 
+        <!-- Task Description -->
+
         <TextView
             android:id="@+id/tvQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="What is the purpose of the 'this' keyword in JavaScript?"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
-
-        <!-- Task Description -->
 
         <RadioGroup
             android:id="@+id/rgOptions"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvQuestion"
             android:layout_marginTop="15dp"
@@ -37,29 +37,37 @@
                 android:id="@+id/rbtnOption1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="25dp"
                 android:text="To declare a variable"
-                android:textSize="16sp" />
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="25dp"
                 android:text="To refer to the current object"
-                android:textSize="16sp" />
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="25dp"
                 android:text="To define a function"
-                android:textSize="16sp" />
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="25dp"
                 android:text="What is the data type of a variable that can hold more than one value in JavaScript"
-                android:textSize="16sp" />
+                android:textAlignment="textEnd"
+                android:textSize="18sp" />
         </RadioGroup>
 
         <Button
@@ -72,6 +80,18 @@
             android:text="Submit"
             android:textStyle="bold"
             app:cornerRadius="6dp" />
+
+        <TextView
+            android:id="@+id/tvExpandTooltip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnSubmitAnswer"
+            android:layout_marginTop="5dp"
+            android:text="Click to expand"
+            android:textAlignment="textEnd"
+            android:textColor="#C5C5C5"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
 
         <!--        &lt;!&ndash; Edit Button (Options Menu) &ndash;&gt;-->

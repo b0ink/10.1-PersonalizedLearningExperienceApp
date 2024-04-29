@@ -50,6 +50,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
         private RelativeLayout rlQuestionView;
 
         private TextView tvQuestion;
+        private TextView tvExpandTooltip;
 
         private RadioGroup rgOptions;
         private RadioButton rbtnOption1;
@@ -67,6 +68,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             super(itemView);
             rlQuestionView = itemView.findViewById(R.id.rlQuestionView);
             tvQuestion = itemView.findViewById(R.id.tvQuestion);
+            tvExpandTooltip = itemView.findViewById(R.id.tvExpandTooltip);
 
             rgOptions = itemView.findViewById(R.id.rgOptions);
             rbtnOption1 = itemView.findViewById(R.id.rbtnOption1);
@@ -112,14 +114,18 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             animator.start();
             rgOptions.setVisibility(View.GONE);
             btnSubmitAnswer.setVisibility(View.GONE);
+            tvExpandTooltip.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+            tvExpandTooltip.setText("Click to expand");
         }
 
         private void expandRadioGroup() {
             rgOptions.setVisibility(View.VISIBLE);
-            btnSubmitAnswer.setVisibility(View.VISIBLE);
+//            btnSubmitAnswer.setVisibility(View.VISIBLE);
             ObjectAnimator animator = ObjectAnimator.ofFloat(rgOptions, "alpha", 0f, 1f);
             animator.setDuration(500);
             animator.start();
+            tvExpandTooltip.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
+            tvExpandTooltip.setText("Click to collapse");
         }
 
     }
