@@ -79,10 +79,17 @@ public class AccountRegisterActivity extends AppCompatActivity {
             call.enqueue(new Callback<ResponsePost>() {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                    if(!response.isSuccessful()){
+                        Toast.makeText(AccountRegisterActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     try {
                         String message  = response.body().message;
                         System.out.println(message);
                         Toast.makeText(AccountRegisterActivity.this, message, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AccountRegisterActivity.this, AccountLoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
