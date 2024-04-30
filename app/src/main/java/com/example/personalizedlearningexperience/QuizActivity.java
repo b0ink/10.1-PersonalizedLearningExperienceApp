@@ -163,7 +163,7 @@ public class QuizActivity extends AppCompatActivity {
 //                    q.usersGuess = authManager.getUsersGuess(selectedQuiz, q);
 //                }
 
-                tvQuizTopic.setText("AI Generated Quiz:\n" + selectedQuiz.getFormattedTopic());
+                tvQuizTopic.setText("Quiz:\n" + selectedQuiz.getFormattedTopic());
                 if (loadResults) {
                     tvQuizTopic.setText("Your Results:\n" + selectedQuiz.getFormattedTopic() + " quiz");
                     btnSubmitQuiz.setText("Go back home");
