@@ -112,7 +112,16 @@ public class QuizActivity extends AppCompatActivity {
         ArrayList<QuizQuestion> questions = new ArrayList<>();
         RecyclerView recycler = findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
+        ArrayList<String> placeholderQuestions = new ArrayList<>();
+        placeholderQuestions.add("");
+        placeholderQuestions.add("");
+        placeholderQuestions.add("");
+        placeholderQuestions.add("");
+        questions.add(new QuizQuestion("Loading...", placeholderQuestions, ""));
+        questions.add(new QuizQuestion("Loading...", placeholderQuestions, ""));
+        questions.add(new QuizQuestion("Loading...", placeholderQuestions, ""));
+        questions.add(new QuizQuestion("Loading...", placeholderQuestions, ""));
+        questions.add(new QuizQuestion("Loading...", placeholderQuestions, ""));
         QuizQuestionAdapter adapter = new QuizQuestionAdapter(this, questions);
         recycler.setAdapter(adapter);
 
@@ -149,7 +158,7 @@ public class QuizActivity extends AppCompatActivity {
                     tvQuizTopic.setText("Your Results:\n" + selectedQuiz.getFormattedTopic() + " quiz");
                     btnSubmitQuiz.setText("Go back home");
                 }
-
+                questions.clear();
                 questions.addAll(selectedQuiz.questions);
                 adapter.notifyDataSetChanged();
             }
