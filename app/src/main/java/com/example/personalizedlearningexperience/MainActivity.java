@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -135,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
                     quiz.loaded = true;
                     System.out.println("Correct answers for quiz " + quiz.topic + ": " + quiz.getCorrectAnswers());
                 }
+
                 Collections.reverse(quizzes); // Newest at top
+
+                Collections.sort(quizzes, Comparator.comparing(Quiz::userHasAttempted));
+
 
                 if (quizzes.size() < 3 && interests.size() > 0) {
                     String randomTopic = interests.get(new Random().nextInt(interests.size()));

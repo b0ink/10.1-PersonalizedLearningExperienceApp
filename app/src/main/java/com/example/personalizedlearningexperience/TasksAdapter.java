@@ -99,8 +99,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
 
                 if(quiz.userHasAttempted()){
-                    btnAttemptQuiz.setVisibility(View.GONE);
-                    //TODO: turn into a view results button?
+//                    btnAttemptQuiz.setVisibility(View.GONE);
+                    btnAttemptQuiz.setText("View Results");
+                    btnAttemptQuiz.setBackgroundColor(Color.parseColor("#FFFF02C8"));
+                    btnAttemptQuiz.setTextColor(Color.parseColor("#FFFFFF"));
                 }
 
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(rlTaskView, "alpha", 0f, 1f);
