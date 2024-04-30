@@ -46,8 +46,7 @@ public class InterestsActivity extends AppCompatActivity {
 
         ArrayList<String> interests = new ArrayList<>();
         interests.add("Web Development");
-        interests.add("JavaScript");
-        interests.add("Mobile App Development");
+        interests.add("Javascript");
         interests.add("PHP");
         interests.add("Linear Algebra");
         interests.add("Discrete Math");
@@ -55,10 +54,10 @@ public class InterestsActivity extends AppCompatActivity {
         // Additional interests
         interests.add("Python");
         interests.add("Data Science");
-        interests.add("Artificial Intelligence");
+        interests.add("AI");
         interests.add("Machine Learning");
         interests.add("Cyber Security");
-        interests.add("Network Administration");
+        interests.add("Networks");
         interests.add("C++");
         interests.add("Cloud Computing");
         interests.add("Database Management");
@@ -67,22 +66,16 @@ public class InterestsActivity extends AppCompatActivity {
         interests.add("Web Design");
         interests.add("C#");
         interests.add("Software Engineering");
-        interests.add("Computer Graphics");
-        interests.add("Game Development");
+        interests.add("Game Dev");
         interests.add("UI/UX Design");
-        interests.add("Big Data Analytics");
-        interests.add("Blockchain Technology");
-        interests.add("Augmented Reality (AR)");
-        interests.add("Virtual Reality (VR)");
+        interests.add("Blockchain");
+        interests.add("Augmented Reality");
+        interests.add("Virtual Reality");
         interests.add("Cryptography");
         interests.add("Data Mining");
         interests.add("Robotics");
-        interests.add("Embedded Systems");
-        interests.add("Information Retrieval");
-        interests.add("Computer Vision");
         interests.add("Quantum Computing");
         interests.add("Bioinformatics");
-        interests.add("Wireless Communication");
         interests.add("Parallel Computing");
 
         Collections.shuffle(interests);
