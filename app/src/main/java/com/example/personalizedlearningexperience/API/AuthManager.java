@@ -157,6 +157,8 @@ public class AuthManager {
 
     public void logout(){
         resetToken();
+        // DEBUG:
+        saveInterests(new ArrayList<>());
     }
 
     public Boolean isTokenValid() {
