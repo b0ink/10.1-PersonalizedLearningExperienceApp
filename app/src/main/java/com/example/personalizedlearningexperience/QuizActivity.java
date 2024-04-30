@@ -2,6 +2,7 @@ package com.example.personalizedlearningexperience;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.example.personalizedlearningexperience.API.models.ResponsePost;
 
 import java.util.ArrayList;
 
+import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +35,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView tvQuizTopic;
 
     private Button btnSubmitQuiz;
+    private GifImageView gifSpinner;
 
     private Quiz selectedQuiz;
 
@@ -64,6 +67,8 @@ public class QuizActivity extends AppCompatActivity {
 
         tvQuizTopic = findViewById(R.id.tvQuizTopic);
         btnSubmitQuiz = findViewById(R.id.btnSubmitQuiz);
+        gifSpinner = findViewById(R.id.gifSpinner);
+        gifSpinner.setVisibility(View.VISIBLE);
 
         btnSubmitQuiz.setOnClickListener(view -> {
             if (selectedQuiz == null) return;
@@ -132,6 +137,8 @@ public class QuizActivity extends AppCompatActivity {
                 if (selectedQuiz == null) {
                     return;
                 }
+
+                gifSpinner.setVisibility(View.GONE);
 
 //                for(QuizQuestion q : selectedQuiz.questions){
 //                    q.usersGuess = authManager.getUsersGuess(selectedQuiz, q);
