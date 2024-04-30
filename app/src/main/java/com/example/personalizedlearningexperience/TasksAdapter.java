@@ -98,6 +98,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 tvSpinnerText.setVisibility(View.GONE);
                 tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
 
+                if(quiz.userHasAttempted()){
+                    btnAttemptQuiz.setVisibility(View.GONE);
+                    //TODO: turn into a view results button?
+                }
+
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(rlTaskView, "alpha", 0f, 1f);
 //                animator.setDuration(1000);
 //                animator.start();

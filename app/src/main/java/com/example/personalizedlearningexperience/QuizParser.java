@@ -1,13 +1,16 @@
 package com.example.personalizedlearningexperience;
 
+import com.example.personalizedlearningexperience.API.AuthManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import android.content.Context;
 
 public class QuizParser {
-    public static ArrayList<Quiz> parseQuizzes(String json) {
+    public static ArrayList<Quiz> parseQuizzes(Context context, String json) {
         System.out.println(json);
         ArrayList<Quiz> quizzes = new ArrayList<>();
         try {
@@ -42,6 +45,7 @@ public class QuizParser {
                         }
 
                         QuizQuestion newQuizQuestion = new QuizQuestion(question, quizOptions, correctAnswer);
+                        newQuizQuestion.usersGuess = new AuthManager(context).getUsersGuess(newQuiz, newQuizQuestion);
                         newQuiz.AddQuestion(newQuizQuestion);
                     }
 

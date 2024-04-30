@@ -78,7 +78,9 @@ public class QuizActivity extends AppCompatActivity {
                 return;
             }
 
-
+            for(QuizQuestion q : selectedQuiz.questions){
+                authManager.saveUsersGuess(selectedQuiz, q);
+            }
 
         });
         authManager = new AuthManager(this);
@@ -100,7 +102,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 String quizData = response.body().message;
-                quizzes.addAll(QuizParser.parseQuizzes(quizData));
+                quizzes.addAll(QuizParser.parseQuizzes(QuizActivity.this, quizData));
                 //TODO: questionAdapater + recyclerView for the quiz questions
 //                tvQuestion1.setText(quizzes.get(0).topic);
                 for (Quiz quiz : quizzes) {
@@ -113,6 +115,10 @@ public class QuizActivity extends AppCompatActivity {
                 if(selectedQuiz == null){
                     return;
                 }
+
+//                for(QuizQuestion q : selectedQuiz.questions){
+//                    q.usersGuess = authManager.getUsersGuess(selectedQuiz, q);
+//                }
 
                 tvQuizTopic.setText("AI Generated Quiz:\n"+selectedQuiz.getFormattedTopic());
 

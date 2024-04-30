@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
+import com.example.personalizedlearningexperience.Quiz;
+import com.example.personalizedlearningexperience.QuizQuestion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,6 +82,35 @@ public class AuthManager {
 //        });
 //    }
 
+    public String getUsersGuess(Quiz quiz, QuizQuestion question){
+        if(quiz == null || question == null){
+            return "";
+        }
+        String quizId = String.valueOf(quiz.id);
+        String quizQuestion = question.question;
+
+        String key = quizId + quizQuestion;
+
+        return sharedPreferences.getString(key, "");
+    }
+
+
+    public void saveUsersGuess(Quiz quiz, QuizQuestion question){
+        if(quiz == null || question == null || question.usersGuess.isEmpty()){
+            return;
+        }
+        String quizId = String.valueOf(quiz.id);
+        String quizQuestion = question.question;
+        String usersGuess = question.usersGuess;
+
+        String key = quizId + quizQuestion;
+        String value = usersGuess;
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key, value);
+        editor.apply();
+        System.out.println("Saved users guess "+key+value);
+    }
 
     public ArrayList<String> getInterests() {
         ArrayList<String> topics = new ArrayList<>();

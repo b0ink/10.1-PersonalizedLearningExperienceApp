@@ -130,9 +130,10 @@ public class MainActivity extends AppCompatActivity {
                 String quizData = response.body().message;
                 System.out.println(quizData);
 
-                quizzes.addAll(QuizParser.parseQuizzes(quizData));
+                quizzes.addAll(QuizParser.parseQuizzes(MainActivity.this, quizData));
                 for(Quiz quiz : quizzes){
                     quiz.loaded = true;
+                    System.out.println("Correct answers for quiz " + quiz.topic + ": " + quiz.getCorrectAnswers());
                 }
                 Collections.reverse(quizzes); // Newest at top
 
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponsePost> newQuizCall, Response<ResponsePost> response) {
                             String jsonString = response.body().message;
-                            ArrayList<Quiz> newQuizzes = QuizParser.parseQuizzes(jsonString);
+                            ArrayList<Quiz> newQuizzes = QuizParser.parseQuizzes(MainActivity.this, jsonString);
                             quizzes.remove(0);
 //                            adapter.notifyItemRemoved(0);
                             quizzes.add(0, newQuizzes.get(0)); // TODO error handle
