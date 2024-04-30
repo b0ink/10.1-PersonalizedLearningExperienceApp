@@ -13,20 +13,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="25dp"
+        android:paddingTop="25dp"
         android:paddingRight="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvQuizTopic"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Generated quiz:\nWeb development"
-            android:textColor="#000000"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="25dp">
+
+            <TextView
+                android:id="@+id/tvQuizTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Generated quiz:\nWeb development"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnGoBack"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#00FFFFFF"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/left_arrow" />
+        </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -50,7 +68,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="600dp" >
+                    android:minHeight="600dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 

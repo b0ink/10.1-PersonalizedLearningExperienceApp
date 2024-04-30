@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button btnSubmitQuiz;
     private GifImageView gifSpinner;
+    private ImageButton btnGoBack;
 
     private Quiz selectedQuiz;
 
@@ -69,6 +71,14 @@ public class QuizActivity extends AppCompatActivity {
         btnSubmitQuiz = findViewById(R.id.btnSubmitQuiz);
         gifSpinner = findViewById(R.id.gifSpinner);
         gifSpinner.setVisibility(View.VISIBLE);
+        btnGoBack = findViewById(R.id.btnGoBack);
+
+        btnGoBack.setOnClickListener(view -> {
+            Intent homeIntent = new Intent(QuizActivity.this, MainActivity.class);
+            startActivity(homeIntent);
+            finish();
+            return;
+        });
 
         btnSubmitQuiz.setOnClickListener(view -> {
             if (selectedQuiz == null) return;
