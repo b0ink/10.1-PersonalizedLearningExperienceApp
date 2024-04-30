@@ -72,8 +72,8 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
 //                    notifyItemMoved(getAdapterPosition(),   selectedInterests.size());
                     selectedInterests.remove(index);
 //                    view.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    rlInterestItem.setBackgroundResource(R.drawable.gradient_card_background);
-                    tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                    rlInterestItem.setBackgroundResource(R.drawable.gradient_card_interest_background);
+                    tvInterestTitle.setTextColor(Color.parseColor("#000000"));
                 } else {
                     if (selectedInterests.size() >= 10) {
                         Toast.makeText(view.getContext(), "You cannot select more than 10 topics!", Toast.LENGTH_SHORT).show();
@@ -102,9 +102,9 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
                 rlInterestItem.setBackgroundColor(androidx.cardview.R.color.cardview_shadow_start_color);
                 tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
             } else {
-                rlInterestItem.setBackgroundResource(R.drawable.gradient_card_background);
+                rlInterestItem.setBackgroundResource(R.drawable.gradient_card_interest_background);
 //                rlInterestItem.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                tvInterestTitle.setTextColor(Color.parseColor("#000000"));
             }
         }
 
