@@ -1,5 +1,8 @@
 package com.example.personalizedlearningexperience.API;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,7 +12,15 @@ public class RetrofitClient {
     private Retrofit retrofit;
 
     private RetrofitClient(){
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build();
+
         retrofit = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
