@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".QuizActivity">
 
     <LinearLayout
@@ -22,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:text="Generated quiz:\nWeb development"
-            android:textSize="28sp"
+            android:textColor="#000000"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView

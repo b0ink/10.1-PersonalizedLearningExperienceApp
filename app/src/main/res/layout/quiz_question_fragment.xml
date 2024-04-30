@@ -13,6 +13,7 @@
         android:id="@+id/rlQuestionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/gradient_card_background"
         android:padding="25dp">
 
         <!-- Task Description -->
@@ -25,15 +26,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="15dp"
-            android:background="@drawable/question_status_background_unanswered"
+            android:background="@drawable/question_status_background_answered"
             android:minWidth="100dp"
             android:paddingStart="15dp"
             android:paddingTop="4dp"
             android:paddingEnd="15dp"
             android:paddingBottom="4dp"
-            android:text="Unanswered"
+            android:text="Answered"
             android:textAlignment="center"
-            android:textColor="#999999" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/tvQuestion"
@@ -41,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvQuestionStatus"
             android:text="What is the purpose of the 'this' keyword in JavaScript?"
+            android:textColor="#FFFFFF"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -56,36 +58,44 @@
                 android:id="@+id/rbtnOption1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
                 android:paddingStart="25dp"
                 android:text="To declare a variable"
                 android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
                 android:paddingStart="25dp"
                 android:text="To refer to the current object"
                 android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
                 android:paddingStart="25dp"
                 android:text="To define a function"
                 android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOption4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#FFFFFF"
                 android:paddingStart="25dp"
                 android:text="What is the data type of a variable that can hold more than one value in JavaScript"
                 android:textAlignment="textEnd"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
         </RadioGroup>
 
@@ -95,8 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rgOptions"
             android:layout_marginTop="15dp"
-            android:backgroundTint="#11DE63"
+            android:backgroundTint="#02ff7d"
             android:text="Submit"
+            android:textColor="#000000"
             android:textStyle="bold"
             app:cornerRadius="6dp" />
 
@@ -108,7 +119,7 @@
             android:layout_marginTop="5dp"
             android:text="Click to expand"
             android:textAlignment="textEnd"
-            android:textColor="#C5C5C5"
+            android:textColor="#88C4FF"
             android:textSize="16sp"
             android:textStyle="italic" />
 

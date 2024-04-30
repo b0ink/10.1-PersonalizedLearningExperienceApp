@@ -119,13 +119,14 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
         private void markUnanswered(){
             tvQuestionStatus.setText("Unanswered");
-            tvQuestionStatus.setTextColor(Color.parseColor("#999999"));
+            tvQuestionStatus.setTextColor(Color.parseColor("#B2D7FF"));
             tvQuestionStatus.setBackgroundResource(R.drawable.question_status_background_unanswered);
         }
 
         private void markAnswered(){
+            tvQuestionStatus.setVisibility(View.GONE);
             tvQuestionStatus.setText("Answered");
-            tvQuestionStatus.setTextColor(Color.parseColor("#FFFFFF"));
+            tvQuestionStatus.setTextColor(Color.parseColor("#000000"));
             tvQuestionStatus.setBackgroundResource(R.drawable.question_status_background_answered);
         }
 
