@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:shimmer_auto_start="false"
     app:shimmer_base_alpha="255"
@@ -15,36 +14,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:id="@+id/layoutSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:orientation="vertical">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/gifSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:src="@drawable/ripple_spinner"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/tvSpinnerText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Generating new quiz..."
-                android:textAlignment="center"
-                android:textStyle="italic" />
-        </LinearLayout>
+        android:background="@drawable/gradient_card_background"
+        android:padding="16dp"
+        app:cardCornerRadius="8dp">
 
         <RelativeLayout
             android:id="@+id/rlTaskView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_card_background"
             android:padding="25dp">
 
             <!-- Task Title -->
@@ -53,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Placeholder Task Title"
+                android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -62,9 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvTitle"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="15dp"
                 android:text="Placeholder task description"
-                android:textColor="#8B8B8B"
+                android:textColor="#F1F7FF"
                 android:textSize="16sp" />
 
             <Button
@@ -73,8 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="#27BA22"
+                android:backgroundTint="#02ff7d"
                 android:text="Start Quiz"
+                android:textColor="#000000"
                 android:textStyle="bold"
                 app:cornerRadius="6dp" />
 
@@ -92,5 +72,32 @@
 
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:orientation="vertical"
+            tools:visibility="visible">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gifSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/ripple_spinner"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tvSpinnerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generating new quiz..."
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textStyle="italic"
+                tools:visibility="visible" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </com.facebook.shimmer.ShimmerFrameLayout>

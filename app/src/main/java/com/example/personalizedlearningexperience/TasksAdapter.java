@@ -110,20 +110,22 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 // "flash" the card on load
                 //TODO: only apply effect to newly generated tasks
 
-                if(!quiz.loaded){
-                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#00ffbb"), Color.parseColor("#FFFFFF"));
-                    colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
-
-                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animator) {
-                            rlTaskView.setBackgroundColor((int) animator.getAnimatedValue());
-                        }
-                    });
-
-                    colorAnimation.start();
-                    quiz.loaded = true;
-                }
+                //TODO: instead of flashing the backgorund color, highlight it with a "NEW" badge or something
+                // -> color animation loses the background gradient resource
+//                if(!quiz.loaded){
+//                    ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), Color.parseColor("#00ffbb"), Color.parseColor("#015fef"));
+//                    colorAnimation.setDuration(1000); // Duration of the animation in milliseconds
+//
+//                    colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator animator) {
+//                            rlTaskView.setBackgroundColor((int) animator.getAnimatedValue());
+//                        }
+//                    });
+//
+//                    colorAnimation.start();
+//                    quiz.loaded = true;
+//                }
 
             }
 

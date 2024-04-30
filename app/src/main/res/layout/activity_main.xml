@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -19,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:text="Hello,\nYour name!"
-            android:textSize="32sp"
+            android:textColor="#000000"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <TextView
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:background="#24E893"
+            android:background="#02fff1"
             android:padding="8dp"
             android:text="AI Generated Quizzes"
             android:textAlignment="center"
