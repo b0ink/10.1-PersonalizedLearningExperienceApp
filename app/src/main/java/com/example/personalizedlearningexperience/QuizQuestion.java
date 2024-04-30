@@ -15,5 +15,6 @@ public class QuizQuestion {
         this.question = question;
         this.options = options;
         this.correctAnswer = correctAnswer;
+        this.usersGuess = "";
     }
 }

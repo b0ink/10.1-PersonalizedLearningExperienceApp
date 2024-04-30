@@ -2,7 +2,9 @@ package com.example.personalizedlearningexperience;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,10 @@ public class QuizActivity extends AppCompatActivity {
     private AuthManager authManager;
     private TextView tvQuizTopic;
 
+    private Button btnSubmitQuiz;
+
+    private Quiz selectedQuiz;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +58,29 @@ public class QuizActivity extends AppCompatActivity {
             return;
         }
 
-        tvQuizTopic = findViewById(R.id.tvQuizTopic);
+        selectedQuiz = null;
 
+        tvQuizTopic = findViewById(R.id.tvQuizTopic);
+        btnSubmitQuiz = findViewById(R.id.btnSubmitQuiz);
+
+        btnSubmitQuiz.setOnClickListener(view -> {
+            if(selectedQuiz == null) return;
+
+            Boolean unanswered = false;
+            for(QuizQuestion q : selectedQuiz.questions){
+                if(q.usersGuess.isEmpty()){
+                    unanswered = true;
+                }
+            }
+
+            if(unanswered){
+                Toast.makeText(this, "Please answer all the questions before submitting!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+
+
+        });
         authManager = new AuthManager(this);
         ArrayList<Quiz> quizzes = new ArrayList<>();
 
@@ -76,7 +103,6 @@ public class QuizActivity extends AppCompatActivity {
                 quizzes.addAll(QuizParser.parseQuizzes(quizData));
                 //TODO: questionAdapater + recyclerView for the quiz questions
 //                tvQuestion1.setText(quizzes.get(0).topic);
-                Quiz selectedQuiz = null;
                 for (Quiz quiz : quizzes) {
                     if (quiz.id == quizID){
                         selectedQuiz = quiz;
