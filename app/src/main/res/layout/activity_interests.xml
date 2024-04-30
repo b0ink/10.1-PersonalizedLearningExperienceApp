@@ -5,13 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".InterestsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="15sp"
+        android:padding="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Your\nInterests"
             android:textAlignment="textStart"
+            android:textColor="#000000"
             android:textSize="46sp"
             android:textStyle="bold" />
 
@@ -33,7 +35,8 @@
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
             android:text="Select up to 10 interests."
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/btnContinue"
@@ -42,8 +45,11 @@
             android:layout_gravity="center"
             android:layout_marginBottom="25dp"
             android:width="200dp"
+            android:backgroundTint="#00FF37"
             android:gravity="center|center_horizontal"
-            android:text="Continue" />
+            android:text="Continue"
+            android:textColor="#000000"
+            app:cornerRadius="6dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

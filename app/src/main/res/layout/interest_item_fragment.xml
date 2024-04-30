@@ -15,6 +15,7 @@
         android:id="@+id/rlInterestItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/gradient_card_background"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:paddingEnd="20dp"
@@ -25,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Placeholder Task Title"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold" />
 
