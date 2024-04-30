@@ -106,7 +106,11 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
             rgOptions.setOnCheckedChangeListener((group, checkedID) -> {
                 markAnswered();
+                RadioButton radioButton = itemView.findViewById(checkedID);
+                question.usersGuess = radioButton.getText().toString();
+                System.out.println("users guess: " + radioButton.getText().toString() );
             });
+
 
             markUnanswered();
 
