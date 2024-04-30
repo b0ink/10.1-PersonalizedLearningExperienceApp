@@ -26,10 +26,22 @@
             android:padding="25dp">
 
             <!-- Task Title -->
+
+            <TextView
+                android:id="@+id/tvCompletedStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completed!"
+                android:textAlignment="textEnd"
+                android:textColor="#4CFF00"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tvCompletedStatus"
                 android:text="Placeholder Task Title"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"

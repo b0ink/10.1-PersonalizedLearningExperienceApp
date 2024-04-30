@@ -56,6 +56,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         private TextView tvQuizTitle;
         private TextView tvQuizDescription;
+        private TextView tvCompletedStatus;
+
         private Button btnAttemptQuiz;
 
         private LinearLayout layoutSpinner;
@@ -73,12 +75,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             layoutSpinner = itemView.findViewById(R.id.layoutSpinner);
             gifSpinner = itemView.findViewById(R.id.gifSpinner);
             tvSpinnerText = itemView.findViewById(R.id.tvSpinnerText);
+            tvCompletedStatus = itemView.findViewById(R.id.tvCompletedStatus);
         }
 
         public void bind(Quiz quiz){
 //            tvInterestTitle.setText(quiz);
             ShimmerFrameLayout shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
-
+            tvCompletedStatus.setVisibility(View.GONE);
             if(quiz.topic.equals("GENERATING QUIZ...")){
                 tvQuizTitle.setText("");
                 btnAttemptQuiz.setVisibility(View.GONE);
@@ -103,6 +106,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                     btnAttemptQuiz.setText("View Results");
                     btnAttemptQuiz.setBackgroundColor(Color.parseColor("#FFFF02C8"));
                     btnAttemptQuiz.setTextColor(Color.parseColor("#FFFFFF"));
+                    tvCompletedStatus.setVisibility(View.VISIBLE);
+
                 }
 
 //                ObjectAnimator animator = ObjectAnimator.ofFloat(rlTaskView, "alpha", 0f, 1f);
