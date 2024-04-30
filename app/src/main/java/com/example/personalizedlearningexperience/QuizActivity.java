@@ -82,6 +82,8 @@ public class QuizActivity extends AppCompatActivity {
                 authManager.saveUsersGuess(selectedQuiz, q);
             }
 
+            // TODO: go to results page
+
         });
         authManager = new AuthManager(this);
         ArrayList<Quiz> quizzes = new ArrayList<>();
