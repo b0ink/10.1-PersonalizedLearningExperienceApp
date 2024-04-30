@@ -1,5 +1,6 @@
 package com.example.personalizedlearningexperience;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ public class AccountRegisterActivity extends AppCompatActivity {
     private EditText etMobile;
 
     private Button btnRegister;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,14 @@ public class AccountRegisterActivity extends AppCompatActivity {
         etMobile = findViewById(R.id.etMobile);
 
         btnRegister = findViewById(R.id.btnRegister);
+
+        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(AccountRegisterActivity.this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        });
 
         btnRegister.setOnClickListener(view -> {
             String username = etUsername.getText().toString().trim();

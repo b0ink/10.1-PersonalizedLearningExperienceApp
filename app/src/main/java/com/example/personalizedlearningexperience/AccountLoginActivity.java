@@ -28,6 +28,7 @@ public class AccountLoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
+    private Button btnCreateAccount;
 
     private AuthManager authManager;
 
@@ -45,6 +46,14 @@ public class AccountLoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
+        btnCreateAccount.setOnClickListener(view -> {
+            Intent intent = new Intent(AccountLoginActivity.this, AccountRegisterActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        });
 
         authManager = new AuthManager(this);
 
