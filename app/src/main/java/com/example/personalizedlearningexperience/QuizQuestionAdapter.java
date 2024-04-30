@@ -114,6 +114,9 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
                 System.out.println("users guess: " + radioButton.getText().toString());
             });
 
+            tvQuestionResult.setVisibility(View.GONE);
+
+
             if (!question.usersGuess.isEmpty()) {
                 //TODO: are we 100% displaying the results page here?
                 markAnswered();
