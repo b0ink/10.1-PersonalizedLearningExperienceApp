@@ -3,6 +3,7 @@ package com.example.personalizedlearningexperience;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,9 +28,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     public ArrayList<Quiz> tasks;
 
+    private Context context;
 
     public TasksAdapter(Context context, ArrayList<Quiz> interests){
         this.tasks = interests;
+        this.context = context;
     }
 
 
@@ -37,7 +40,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
     @Override
     public TasksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_task_fragment, parent, false);
-        return new TasksViewHolder(view);
+        return new TasksViewHolder(context, view);
     }
 
     @Override
@@ -64,8 +67,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
         private TextView tvSpinnerText;
         private ImageView gifSpinner;
 
+        private Context context;
 
-        public TasksViewHolder(@NonNull View itemView){
+        public TasksViewHolder(Context context, @NonNull View itemView){
             super(itemView);
             tvQuizTitle = itemView.findViewById(R.id.tvTitle);
             tvQuizDescription = itemView.findViewById(R.id.tvDescription);
@@ -76,6 +80,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             gifSpinner = itemView.findViewById(R.id.gifSpinner);
             tvSpinnerText = itemView.findViewById(R.id.tvSpinnerText);
             tvCompletedStatus = itemView.findViewById(R.id.tvCompletedStatus);
+            this.context = context;
         }
 
         public void bind(Quiz quiz){
@@ -142,11 +147,19 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             }
 
 
-
             btnAttemptQuiz.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), QuizActivity.class);
                 intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
+                if (quiz.userHasAttempted()) {
+                    intent.putExtra(QuizActivity.EXTRA_QUIZ_LOAD_RESULTS, true);
+                }
                 view.getContext().startActivity(intent);
+                try{
+                    ((Activity)context).finish();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
             });
         }
 

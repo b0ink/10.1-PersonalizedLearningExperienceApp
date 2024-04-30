@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class QuizActivity extends AppCompatActivity {
 
     public static final String EXTRA_QUIZ_ID = "extra_quiz_id";
+    public static final String EXTRA_QUIZ_LOAD_RESULTS = "extra_quiz_load_results";
 
     private AuthManager authManager;
     private TextView tvQuizTopic;
@@ -52,6 +53,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         int quizID = intent.getIntExtra(EXTRA_QUIZ_ID, -1);
+        Boolean loadResults = intent.getBooleanExtra(EXTRA_QUIZ_LOAD_RESULTS, false);
 
         if (quizID == -1) {
             finish();
@@ -64,25 +66,38 @@ public class QuizActivity extends AppCompatActivity {
         btnSubmitQuiz = findViewById(R.id.btnSubmitQuiz);
 
         btnSubmitQuiz.setOnClickListener(view -> {
-            if(selectedQuiz == null) return;
+            if (selectedQuiz == null) return;
+
+            if(loadResults){
+                Intent homeIntent = new Intent(QuizActivity.this, MainActivity.class);
+                startActivity(homeIntent);
+                finish();
+                return;
+            }
 
             Boolean unanswered = false;
-            for(QuizQuestion q : selectedQuiz.questions){
-                if(q.usersGuess.isEmpty()){
+            for (QuizQuestion q : selectedQuiz.questions) {
+                if (q.usersGuess.isEmpty()) {
                     unanswered = true;
                 }
             }
 
-            if(unanswered){
+            if (unanswered) {
                 Toast.makeText(this, "Please answer all the questions before submitting!", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            for(QuizQuestion q : selectedQuiz.questions){
+            for (QuizQuestion q : selectedQuiz.questions) {
                 authManager.saveUsersGuess(selectedQuiz, q);
             }
 
-            // TODO: go to results page
+
+            // Refreshes the activity - since user now has saved responses it will load as a results page
+            Intent refreshIntent = new Intent(QuizActivity.this, QuizActivity.class);
+            refreshIntent.putExtra(EXTRA_QUIZ_ID, quizID);
+            refreshIntent.putExtra(EXTRA_QUIZ_LOAD_RESULTS, true);
+            startActivity(refreshIntent);
+            finish();
 
         });
         authManager = new AuthManager(this);
@@ -108,13 +123,13 @@ public class QuizActivity extends AppCompatActivity {
                 //TODO: questionAdapater + recyclerView for the quiz questions
 //                tvQuestion1.setText(quizzes.get(0).topic);
                 for (Quiz quiz : quizzes) {
-                    if (quiz.id == quizID){
+                    if (quiz.id == quizID) {
                         selectedQuiz = quiz;
                         break;
                     }
                 }
 
-                if(selectedQuiz == null){
+                if (selectedQuiz == null) {
                     return;
                 }
 
@@ -122,8 +137,11 @@ public class QuizActivity extends AppCompatActivity {
 //                    q.usersGuess = authManager.getUsersGuess(selectedQuiz, q);
 //                }
 
-                tvQuizTopic.setText("AI Generated Quiz:\n"+selectedQuiz.getFormattedTopic());
-
+                tvQuizTopic.setText("AI Generated Quiz:\n" + selectedQuiz.getFormattedTopic());
+                if (loadResults) {
+                    tvQuizTopic.setText("Your Results:\n" + selectedQuiz.getFormattedTopic() + " quiz");
+                    btnSubmitQuiz.setText("Go back home");
+                }
 
                 questions.addAll(selectedQuiz.questions);
                 adapter.notifyDataSetChanged();
