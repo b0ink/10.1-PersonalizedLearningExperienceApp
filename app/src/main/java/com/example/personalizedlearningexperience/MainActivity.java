@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import okhttp3.internal.concurrent.Task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     private AuthManager authManager;
 
+    private Button btnGenerateNewQuiz;
+
+    private ArrayList<Quiz> quizzes;
+    private ArrayList<String> interests;
+
+    private TasksAdapter adapter;
+    private RecyclerView recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 //        btnRegister = findViewById(R.id.register);
 //        btnApiCall = findViewById(R.id.apicall);
         tvText = findViewById(R.id.textView);
+        btnGenerateNewQuiz = findViewById(R.id.btnGenerateNewQuiz);
 
         authManager = new AuthManager(this);
 
@@ -84,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Check for enough topics/interests have been set
-        ArrayList<String> interests = authManager.getInterests();
+        interests = authManager.getInterests();
         if (interests == null || interests.size() < 3) {
             Intent intent = new Intent(this, InterestsActivity.class);
             startActivity(intent);
@@ -109,13 +118,32 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(getIntent());
 
 
-        ArrayList<Quiz> quizzes = new ArrayList<>();
+        quizzes = new ArrayList<>();
 //        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
-        RecyclerView recycler = findViewById(R.id.tasksRecyclerView);
+        recycler = findViewById(R.id.tasksRecyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        TasksAdapter adapter = new TasksAdapter(this, quizzes);
+        adapter = new TasksAdapter(this, quizzes);
         recycler.setAdapter(adapter);
+
+        btnGenerateNewQuiz.setOnClickListener(view -> {
+            int totalQuizzes = quizzes.size();
+            int completedQuizzes = 0;
+            for (Quiz quiz : quizzes) {
+                if (quiz.userHasAttempted()) {
+                    completedQuizzes++;
+                }
+            }
+
+            int openQuizzes = totalQuizzes - completedQuizzes;
+            if (openQuizzes >= 3) {
+                Toast.makeText(this, "Complete a few quizzes before generating a new one!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            generateNewQuiz();
+
+        });
 
         Call<ResponsePost> call = RetrofitClient.getInstance()
                 .getAPI().getUsersQuizzes(authManager.getToken());
@@ -132,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(quizData);
 
                 quizzes.addAll(QuizParser.parseQuizzes(MainActivity.this, quizData));
-                for(Quiz quiz : quizzes){
+                for (Quiz quiz : quizzes) {
                     quiz.loaded = true;
                     System.out.println("Correct answers for quiz " + quiz.topic + ": " + quiz.getCorrectAnswers());
                 }
@@ -143,38 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (quizzes.size() < 3 && interests.size() > 0) {
-                    String randomTopic = interests.get(new Random().nextInt(interests.size()));
 
-                    Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
-                    placeholderQuiz.loaded = true;
-                    quizzes.add(0, placeholderQuiz);
-                    adapter.notifyItemInserted(0);
-
-                    Call<ResponsePost> newQuizCall = RetrofitClient.getInstance()
-                            .getAPI().createNewQuiz(authManager.getToken(), randomTopic);
-                    newQuizCall.enqueue(new Callback<ResponsePost>() {
-                        @Override
-                        public void onResponse(Call<ResponsePost> newQuizCall, Response<ResponsePost> response) {
-                            String jsonString = response.body().message;
-                            ArrayList<Quiz> newQuizzes = QuizParser.parseQuizzes(MainActivity.this, jsonString);
-                            quizzes.remove(0);
-//                            adapter.notifyItemRemoved(0);
-                            quizzes.add(0, newQuizzes.get(0)); // TODO error handle
-//                            adapter.notifyItemInserted(0);
-                            adapter.notifyItemChanged(0);
-
-//                            finish();
-//                            startActivity(getIntent());
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponsePost> newQuizCall, Throwable throwable) {
-                            System.out.println(throwable.getMessage());
-                            quizzes.remove(0);
-                            adapter.notifyItemRemoved(0);
-                            Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    generateNewQuiz();
                 }
 
                 //TODO: if quiz list is empty, generate a new quiz
@@ -189,6 +187,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void generateNewQuiz() {
+        String randomTopic = interests.get(new Random().nextInt(interests.size()));
+
+        Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
+        placeholderQuiz.loaded = true;
+        quizzes.add(0, placeholderQuiz);
+        adapter.notifyItemInserted(0);
+
+        recycler.scrollToPosition(0);
+
+        Call<ResponsePost> newQuizCall = RetrofitClient.getInstance()
+                .getAPI().createNewQuiz(authManager.getToken(), randomTopic);
+        newQuizCall.enqueue(new Callback<ResponsePost>() {
+            @Override
+            public void onResponse(Call<ResponsePost> newQuizCall, Response<ResponsePost> response) {
+                quizzes.remove(0);
+
+                if(!response.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                String jsonString = response.body().message;
+                ArrayList<Quiz> newQuizzes = QuizParser.parseQuizzes(MainActivity.this, jsonString);
+//                            adapter.notifyItemRemoved(0);
+                quizzes.add(0, newQuizzes.get(0)); // TODO error handle
+//                            adapter.notifyItemInserted(0);
+                adapter.notifyItemChanged(0);
+
+//                            finish();
+//                            startActivity(getIntent());
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePost> newQuizCall, Throwable throwable) {
+                System.out.println(throwable.getMessage());
+                quizzes.remove(0);
+                adapter.notifyItemRemoved(0);
+                Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
