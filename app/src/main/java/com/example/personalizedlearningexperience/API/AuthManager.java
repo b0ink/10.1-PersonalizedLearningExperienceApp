@@ -155,6 +155,10 @@ public class AuthManager {
         return parsedValue;
     }
 
+    public void logout(){
+        resetToken();
+    }
+
     public Boolean isTokenValid() {
         if (this.getToken() == null) {
             return false;

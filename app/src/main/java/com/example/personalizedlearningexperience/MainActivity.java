@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TasksAdapter adapter;
     private RecyclerView recycler;
+
+    private ImageButton btnProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
 //        finish();
 //        startActivity(getIntent());
 
+        btnProfile = findViewById(R.id.btnProfile);
+        btnProfile.setOnClickListener(view -> {
+            authManager.logout();
+            Intent intent = new Intent(this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        });
 
         quizzes = new ArrayList<>();
 //        quizzes.add(new Quiz(1, "iPhone", new ArrayList<>()));
