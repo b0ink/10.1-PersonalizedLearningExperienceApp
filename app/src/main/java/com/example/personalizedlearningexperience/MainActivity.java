@@ -201,7 +201,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateNewQuiz() {
-        String randomTopic = interests.get(new Random().nextInt(interests.size()));
+
+        String randomTopic = "";
+        Boolean alreadyExists = false;
+        int failSafe = 0;
+        do{
+            alreadyExists = false;
+            failSafe++;
+            randomTopic = interests.get(new Random().nextInt(interests.size()));
+            for(Quiz quiz : quizzes){
+                if(quiz.topic.equals(randomTopic)){
+                    alreadyExists = true;
+                }
+            }
+        }while(alreadyExists || failSafe > 100);
 
         Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
         placeholderQuiz.loaded = true;
