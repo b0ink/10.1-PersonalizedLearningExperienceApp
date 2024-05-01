@@ -175,7 +175,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
                         call.enqueue(new Callback<ResponsePost>() {
                             @Override
                             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                                if(!response.isSuccessful()){
+                                if (!response.isSuccessful()) {
                                     System.out.println("response not successful (feedback)");
                                     return;
                                 }
@@ -209,9 +209,6 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             });
 
             if (!question.usersGuess.isEmpty()) {
-                //TODO: are we 100% displaying the results page here?
-//                btnSubmitAnswer.setVisibility(View.VISIBLE);
-
                 markAnswered();
                 rbtnOption1.setEnabled(false);
                 rbtnOption2.setEnabled(false);
@@ -269,11 +266,6 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
                 markUnanswered();
             }
 
-//            btnSubmitAnswer.setOnClickListener(view -> {
-////                Intent intent = new Intent(view.getContext(), QuizActivity.class);
-////                intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
-////                view.getContext().startActivity(intent);
-//            });
         }
 
         private void markUnanswered() {

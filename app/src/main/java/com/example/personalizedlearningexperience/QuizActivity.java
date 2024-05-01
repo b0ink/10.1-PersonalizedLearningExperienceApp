@@ -83,7 +83,7 @@ public class QuizActivity extends AppCompatActivity {
         btnSubmitQuiz.setOnClickListener(view -> {
             if (selectedQuiz == null) return;
 
-            if(loadResults){
+            if (loadResults) {
                 Intent homeIntent = new Intent(QuizActivity.this, MainActivity.class);
                 startActivity(homeIntent);
                 finish();
@@ -144,7 +144,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
                 String quizData = response.body().message;
                 quizzes.addAll(QuizParser.parseQuizzes(QuizActivity.this, quizData));
-                //TODO: questionAdapater + recyclerView for the quiz questions
 //                tvQuestion1.setText(quizzes.get(0).topic);
                 for (Quiz quiz : quizzes) {
                     if (quiz.id == quizID) {

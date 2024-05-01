@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 import android.content.Context;
 
 public class QuizParser {
@@ -30,16 +31,16 @@ public class QuizParser {
 
                     System.out.println("New quiz " + id + topic);
 
-                    for(int g = 0; g < questions.length();g++){
+                    for (int g = 0; g < questions.length(); g++) {
                         JSONObject questionObject = questions.getJSONObject(g);
                         String question = questionObject.getString("question");
                         JSONArray options = questionObject.getJSONArray("options");
                         String correctAnswer = questionObject.getString("answer");
                         ArrayList<String> quizOptions = new ArrayList<>();
-                        System.out.println("New question "+ correctAnswer + question);
+                        System.out.println("New question " + correctAnswer + question);
 
-                        for(int h = 0; h < options.length();h++){
-                            System.out.println("New question option"+ options.getString(h));
+                        for (int h = 0; h < options.length(); h++) {
+                            System.out.println("New question option" + options.getString(h));
 
                             quizOptions.add(options.getString(h));
                         }

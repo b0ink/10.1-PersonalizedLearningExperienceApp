@@ -30,7 +30,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
     private Context context;
 
-    public TasksAdapter(Context context, ArrayList<Quiz> interests){
+    public TasksAdapter(Context context, ArrayList<Quiz> interests) {
         this.tasks = interests;
         this.context = context;
     }
@@ -69,7 +69,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
 
         private Context context;
 
-        public TasksViewHolder(Context context, @NonNull View itemView){
+        public TasksViewHolder(Context context, @NonNull View itemView) {
             super(itemView);
             tvQuizTitle = itemView.findViewById(R.id.tvTitle);
             tvQuizDescription = itemView.findViewById(R.id.tvDescription);
@@ -83,11 +83,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
             this.context = context;
         }
 
-        public void bind(Quiz quiz){
+        public void bind(Quiz quiz) {
 //            tvInterestTitle.setText(quiz);
             ShimmerFrameLayout shimmerFrameLayout = itemView.findViewById(R.id.shimmer_view_container);
             tvCompletedStatus.setVisibility(View.GONE);
-            if(quiz.topic.equals("GENERATING QUIZ...")){
+            if (quiz.topic.equals("GENERATING QUIZ...")) {
                 tvQuizTitle.setText("");
                 btnAttemptQuiz.setVisibility(View.GONE);
                 gifSpinner.setVisibility(View.VISIBLE);
@@ -95,10 +95,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 tvSpinnerText.setVisibility(View.VISIBLE);
 
                 tvQuizDescription.setText("");
-                shimmerFrameLayout.startShimmer(); // To start shimmer effect
+                //TODO:c shimmer no work
+//                shimmerFrameLayout.startShimmer(); // To start shimmer effect
 
-            }else{
-                shimmerFrameLayout.stopShimmer();
+            } else {
+//                shimmerFrameLayout.stopShimmer();
                 String quizTopic = quiz.getFormattedTopic();
                 tvQuizTitle.setText(quizTopic);
                 gifSpinner.setVisibility(View.GONE);
@@ -106,7 +107,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                 tvSpinnerText.setVisibility(View.GONE);
                 tvQuizDescription.setText("AI generated quiz about " + quizTopic + "!");
 
-                if(quiz.userHasAttempted()){
+                if (quiz.userHasAttempted()) {
 //                    btnAttemptQuiz.setVisibility(View.GONE);
                     btnAttemptQuiz.setText("View Results");
                     btnAttemptQuiz.setBackgroundColor(Color.parseColor("#FFFF02C8"));
@@ -154,9 +155,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TasksViewHol
                     intent.putExtra(QuizActivity.EXTRA_QUIZ_LOAD_RESULTS, true);
                 }
                 view.getContext().startActivity(intent);
-                try{
-                    ((Activity)context).finish();
-                }catch(Exception e){
+                try {
+                    ((Activity) context).finish();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

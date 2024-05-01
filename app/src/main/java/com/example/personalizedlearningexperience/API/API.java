@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 
 public interface API {
+    // Login user
     @FormUrlEncoded
     @POST("users/login")
     Call<ResponsePost> loginUser(
@@ -19,6 +20,7 @@ public interface API {
             @Field("password") String password
     );
 
+    // Create new user
     @FormUrlEncoded
     @POST("users/register")
     Call<ResponsePost> createUser(
@@ -34,9 +36,11 @@ public interface API {
     @GET("quiz")
     Call<ResponsePost> getUsersQuizzes(@Header("Authorization") String token);
 
+    // Generate new quiz
     @GET("quiz/create")
     Call<ResponsePost> createNewQuiz(@Header("Authorization") String token, @Query("query") String topic);
 
+    // Retrieve feedback for specific question/answer
     @FormUrlEncoded
     @POST("quiz/feedback")
     Call<ResponsePost> getQuizFeedback(

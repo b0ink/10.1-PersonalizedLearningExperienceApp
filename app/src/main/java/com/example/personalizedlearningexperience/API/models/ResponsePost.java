@@ -4,7 +4,7 @@ public class ResponsePost {
     public String status;
     public String message;
 
-    public ResponsePost(String status, String message){
+    public ResponsePost(String status, String message) {
         this.status = status;
         this.message = message;
     }

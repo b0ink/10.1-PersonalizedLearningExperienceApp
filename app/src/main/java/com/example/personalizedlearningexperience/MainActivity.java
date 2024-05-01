@@ -105,20 +105,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //TODO: if no quizzes -> call API with one of user's interest to generate new quiz
-        //TODO: API creates empty row first, calls Llama, populates row with response
-        //TODO: this way no additional quizzes are made until the initial call is complete
-
         System.out.println(authManager.getToken());
-
         tvText.setText("Welcome back, \n" + authManager.getJwtProperty("username") + "!");
-
-
-        //TODO: save interests in preferences, if none exist, redirect to interestsAcitivity to select new ones
-
-//        -> create new quiz -> on response, reload activity using:
-//        finish();
-//        startActivity(getIntent());
 
         btnProfile = findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(view -> {
@@ -186,15 +174,12 @@ public class MainActivity extends AppCompatActivity {
                     generateNewQuiz();
                 }
 
-                //TODO: if quiz list is empty, generate a new quiz
-                //TODO: refer to localStorage if this topic has been completed, to generate a new one
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<ResponsePost> call, Throwable throwable) {
                 System.out.println("BAD ERROR" + throwable.getMessage());
-
             }
         });
 
@@ -205,16 +190,16 @@ public class MainActivity extends AppCompatActivity {
         String randomTopic = "";
         Boolean alreadyExists = false;
         int failSafe = 0;
-        do{
+        do {
             alreadyExists = false;
             failSafe++;
             randomTopic = interests.get(new Random().nextInt(interests.size()));
-            for(Quiz quiz : quizzes){
-                if(quiz.topic.equals(randomTopic)){
+            for (Quiz quiz : quizzes) {
+                if (quiz.topic.equals(randomTopic)) {
                     alreadyExists = true;
                 }
             }
-        }while(alreadyExists || failSafe > 100);
+        } while (alreadyExists || failSafe > 100);
 
         Quiz placeholderQuiz = new Quiz(-1, "GENERATING QUIZ...");
         placeholderQuiz.loaded = true;
@@ -230,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<ResponsePost> newQuizCall, Response<ResponsePost> response) {
                 quizzes.remove(0);
 
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "An error occurred generating the quiz, please try again.", Toast.LENGTH_LONG).show();
                     return;
                 }

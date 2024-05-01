@@ -21,40 +21,40 @@ public class Quiz {
         questions = new ArrayList<>();
     }
 
-    public Boolean userHasAttempted(){
-        for(QuizQuestion q : this.questions){
-            if(!q.usersGuess.isEmpty()){
+    public Boolean userHasAttempted() {
+        for (QuizQuestion q : this.questions) {
+            if (!q.usersGuess.isEmpty()) {
                 return true;
             }
         }
         return false;
     }
 
-    public int getCorrectAnswers(){
+    public int getCorrectAnswers() {
         int correct = 0;
-        for(QuizQuestion q : this.questions){
-            System.out.println(q.usersGuess + " --- " + q.correctAnswer);
-            if(q.usersGuess.equals(q.correctAnswer)){
+        for (QuizQuestion q : this.questions) {
+//            System.out.println(q.usersGuess + " --- " + q.correctAnswer);
+            if (q.usersGuess.equals(q.correctAnswer)) {
                 correct++;
             }
         }
         return correct;
     }
 
-    public int getTotalQuestions(){
+    public int getTotalQuestions() {
         return this.questions.size();
     }
 
-    public int getWrongAnswers(){
+    public int getWrongAnswers() {
         return getTotalQuestions() - getCorrectAnswers();
     }
 
 
-    public void AddQuestion(QuizQuestion question){
+    public void AddQuestion(QuizQuestion question) {
         questions.add(question);
     }
 
-    public String getFormattedTopic(){
+    public String getFormattedTopic() {
         return (this.topic.substring(0, 1).toUpperCase() + this.topic.substring(1)).trim();
     }
 }

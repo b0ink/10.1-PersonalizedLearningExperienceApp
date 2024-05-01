@@ -90,10 +90,7 @@ public class InterestsAdapter extends RecyclerView.Adapter<InterestsAdapter.Inte
                     tvInterestTitle.setTextColor(Color.parseColor("#FFFFFF"));
                 }
 
-//                SharedPreferences sharePref = view.getContext().getSharedPreferences("interests", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharePref.edit();
-//                editor.putString("interests", selectedInterests.toString());
-//                editor.apply();
+
                 AuthManager authManager = new AuthManager(view.getContext());
                 authManager.saveInterests(selectedInterests);
             });

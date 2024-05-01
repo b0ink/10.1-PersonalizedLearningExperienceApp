@@ -17,6 +17,7 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import com.example.personalizedlearningexperience.API.models.ResponsePost;
 import com.example.personalizedlearningexperience.API.RetrofitClient;
 
@@ -69,22 +70,19 @@ public class AccountRegisterActivity extends AppCompatActivity {
             String confirmPassword = etConfirmPassword.getText().toString().trim();
             String mobile = etMobile.getText().toString().trim();
 
-            //TODO: validation
-            //TODO: check email == confirmEmail && password == confirmPassword
-
             Call<ResponsePost> call = RetrofitClient.getInstance()
                     .getAPI()
-                    .createUser(username, email, confirmEmail, password,confirmPassword, mobile);
+                    .createUser(username, email, confirmEmail, password, confirmPassword, mobile);
 
             call.enqueue(new Callback<ResponsePost>() {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                    if(!response.isSuccessful()){
+                    if (!response.isSuccessful()) {
                         Toast.makeText(AccountRegisterActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
                         return;
                     }
                     try {
-                        String message  = response.body().message;
+                        String message = response.body().message;
                         System.out.println(message);
                         Toast.makeText(AccountRegisterActivity.this, message, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(AccountRegisterActivity.this, AccountLoginActivity.class);
