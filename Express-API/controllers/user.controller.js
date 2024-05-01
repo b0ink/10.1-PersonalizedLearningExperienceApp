@@ -29,9 +29,7 @@ exports.create = async (req, res) => {
 
     if (error) {
         const errorMessage = error.details[0].message;
-        console.log(errorMessage);
-
-        return res.json({ message: errorMessage ? errorMessage : "An unknown error occurred.", status: "400" });
+        return res.status(200).json({ message: errorMessage ? errorMessage : "An unknown error occurred.", status:"400" });
     }
 
 
@@ -52,7 +50,7 @@ exports.create = async (req, res) => {
     User.create(newUser)
         .then((data) => {
             res.json({
-                message: 'success',
+                message: 'Succesfully logged in.',
                 status:200
             });
         })
