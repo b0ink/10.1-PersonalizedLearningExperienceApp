@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, AccountLoginActivity.class);
             startActivity(intent);
             finish();
+            System.out.println("returning to login screen");
             return;
         }
 

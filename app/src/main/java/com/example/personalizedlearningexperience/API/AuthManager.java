@@ -89,6 +89,7 @@ public class AuthManager {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(JWT_TOKEN_KEY, token);
         editor.apply();
+        System.out.println("Saved token");
     }
 
     public void resetToken() {

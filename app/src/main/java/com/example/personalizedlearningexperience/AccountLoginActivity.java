@@ -79,6 +79,7 @@ public class AccountLoginActivity extends AppCompatActivity {
 
                         String token = response.headers().get("Authorization");
                         authManager.saveToken(token);
+                        System.out.println(token);
                         Toast.makeText(AccountLoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(AccountLoginActivity.this, MainActivity.class);
