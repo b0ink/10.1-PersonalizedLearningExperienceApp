@@ -50,7 +50,7 @@ exports.create = async (req, res) => {
     User.create(newUser)
         .then((data) => {
             res.json({
-                message: 'Succesfully logged in.',
+                message: 'Succesfully created account.',
                 status:200
             });
         })
