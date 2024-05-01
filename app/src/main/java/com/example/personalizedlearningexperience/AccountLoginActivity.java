@@ -61,6 +61,11 @@ public class AccountLoginActivity extends AppCompatActivity {
             String username = etUsername.getText().toString().trim();
             String password = etPassword.getText().toString();
 
+            if(username.isEmpty() || password.isEmpty()){
+                Toast.makeText(AccountLoginActivity.this, "Please enter in your username and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Call<ResponsePost> call = RetrofitClient.getInstance()
                     .getAPI()
                     .loginUser(username, password);
@@ -74,6 +79,7 @@ public class AccountLoginActivity extends AppCompatActivity {
                             // TODO: respond accordingly
                             // TODO: custom 4xx codes for each error
                             // TODO: 409: conflict (existing user/email?)
+                            Toast.makeText(AccountLoginActivity.this, "Invalid username/password", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -93,7 +99,7 @@ public class AccountLoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponsePost> call, Throwable throwable) {
-
+                    Toast.makeText(AccountLoginActivity.this, "Invalid username/password", Toast.LENGTH_SHORT).show();
                 }
             });
 
