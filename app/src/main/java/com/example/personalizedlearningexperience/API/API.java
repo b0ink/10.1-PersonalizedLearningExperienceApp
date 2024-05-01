@@ -36,4 +36,14 @@ public interface API {
 
     @GET("quiz/create")
     Call<ResponsePost> createNewQuiz(@Header("Authorization") String token, @Query("query") String topic);
+
+    @FormUrlEncoded
+    @POST("quiz/feedback")
+    Call<ResponsePost> getQuizFeedback(
+            @Header("Authorization") String token,
+            @Field("question") String question,
+            @Field("options") String options,
+            @Field("correctAnswer") String correctAnswer,
+            @Field("usersGuess") String usersGuess
+    );
 }

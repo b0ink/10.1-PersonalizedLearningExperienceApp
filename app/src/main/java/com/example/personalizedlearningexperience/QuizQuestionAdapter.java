@@ -16,19 +16,31 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.personalizedlearningexperience.API.AuthManager;
+import com.example.personalizedlearningexperience.API.RetrofitClient;
+import com.example.personalizedlearningexperience.API.models.ResponsePost;
+
 import java.util.ArrayList;
+
+import pl.droidsonroids.gif.GifImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapter.QuizQuestionViewHolder> {
 
     public ArrayList<QuizQuestion> questions;
 
+    private Context context;
 
     public QuizQuestionAdapter(Context context, ArrayList<QuizQuestion> questions) {
         this.questions = questions;
+        this.context = context;
     }
 
 
@@ -36,7 +48,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
     @Override
     public QuizQuestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_question_fragment, parent, false);
-        return new QuizQuestionViewHolder(view);
+        return new QuizQuestionViewHolder(context, view);
     }
 
     @Override
@@ -73,15 +85,17 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
         private TextView tvFeedbackTitle;
         private TextView tvFeedbackText;
         private Button btnBackToQuestion;
+        private GifImageView gifFeedbackSpinner;
 
         private boolean displayFeedback = false;
 
         // TODO: auto-expand the first question?
         private boolean isExpanded = false;
+        private Context context;
 
-
-        public QuizQuestionViewHolder(@NonNull View itemView) {
+        public QuizQuestionViewHolder(Context context, @NonNull View itemView) {
             super(itemView);
+            this.context = context;
             rlQuestionView = itemView.findViewById(R.id.rlQuestionView);
             tvQuestion = itemView.findViewById(R.id.tvQuestion);
             tvExpandTooltip = itemView.findViewById(R.id.tvExpandTooltip);
@@ -95,7 +109,7 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             rbtnOption4 = itemView.findViewById(R.id.rbtnOption4);
 
             btnSubmitAnswer = itemView.findViewById(R.id.btnSubmitAnswer);
-
+            gifFeedbackSpinner = itemView.findViewById(R.id.gifFeedbackSpinner);
 
             rlFeedbackView = itemView.findViewById(R.id.rlFeedbackView);
             tvFeedbackTitle = itemView.findViewById(R.id.tvFeedbackTitle);
@@ -141,7 +155,52 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             rlFeedbackView.setRotationY(180f);
             btnSubmitAnswer.setOnClickListener(view -> {
                 System.out.println("feedback button clicked - flipping card");
+
+                if (!displayFeedback) {
+                    System.out.println("About to display feedback");
+                    if (tvFeedbackText.getText().toString().isEmpty()) {
+                        gifFeedbackSpinner.setVisibility(View.VISIBLE);
+
+                        String questionStr = question.question;
+                        String delimiter = "\", \"";
+                        String options = "[\"" + String.join(delimiter, question.options) + "\"]";
+                        String correctAnswer = question.correctAnswer;
+                        String usersGuess = question.usersGuess;
+
+//                        System.out.println(options);
+                        AuthManager auth = new AuthManager(context);
+                        Call<ResponsePost> call = RetrofitClient.getInstance()
+                                .getAPI().getQuizFeedback(auth.getToken(), questionStr, options, correctAnswer, usersGuess);
+
+                        call.enqueue(new Callback<ResponsePost>() {
+                            @Override
+                            public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
+                                if(!response.isSuccessful()){
+                                    System.out.println("response not successful (feedback)");
+                                    return;
+                                }
+
+                                gifFeedbackSpinner.setVisibility(View.GONE);
+                                String message = response.body().message;
+                                System.out.println("feedback receieved:" + message);
+
+                                tvFeedbackText.setText(message);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponsePost> call, Throwable throwable) {
+                                Toast.makeText(context, "An error has occurred, please try again", Toast.LENGTH_LONG).show();
+                                flipCard(); // hide feedback and let user flip it back to attempt feedback retrieval again
+                            }
+                        });
+                    } else {
+                        gifFeedbackSpinner.setVisibility(View.GONE);
+                    }
+                }
+
                 flipCard();
+
+
             });
 
             btnBackToQuestion.setOnClickListener(view -> {
@@ -252,7 +311,6 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
         }
 
         private void flipCard() {
-
             // Define the rotation animation
             ObjectAnimator anim = ObjectAnimator.ofFloat(displayFeedback ? rlFeedbackView : rlQuestionView,
                     "rotationY", 0f, 90f);
