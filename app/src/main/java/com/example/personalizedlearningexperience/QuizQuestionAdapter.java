@@ -1,5 +1,7 @@
 package com.example.personalizedlearningexperience;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +67,15 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
         private Button btnSubmitAnswer;
 
+
+        // AI Feedback View
+        private RelativeLayout rlFeedbackView;
+        private TextView tvFeedbackTitle;
+        private TextView tvFeedbackText;
+        private Button btnBackToQuestion;
+
+        private boolean displayFeedback = false;
+
         // TODO: auto-expand the first question?
         private boolean isExpanded = false;
 
@@ -85,6 +96,12 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
             btnSubmitAnswer = itemView.findViewById(R.id.btnSubmitAnswer);
 
+
+            rlFeedbackView = itemView.findViewById(R.id.rlFeedbackView);
+            tvFeedbackTitle = itemView.findViewById(R.id.tvFeedbackTitle);
+            tvFeedbackText = itemView.findViewById(R.id.tvFeedbackText);
+            btnBackToQuestion = itemView.findViewById(R.id.btnBackToQuestion);
+
         }
 
         public void bind(QuizQuestion question) {
@@ -96,11 +113,15 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             rbtnOption3.setText(question.options.get(2));
             rbtnOption4.setText(question.options.get(3));
 
+
             rlQuestionView.setOnClickListener(view -> {
                 if (isExpanded) {
                     collapseRadioGroup();
                 } else {
                     expandRadioGroup();
+                    if (!question.usersGuess.isEmpty()) {
+                        btnSubmitAnswer.setVisibility(View.VISIBLE);
+                    }
                 }
                 isExpanded = !isExpanded;
             });
@@ -115,10 +136,23 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
             });
 
             tvQuestionResult.setVisibility(View.GONE);
+            btnSubmitAnswer.setVisibility(View.GONE);
+            rlFeedbackView.setVisibility(View.GONE);
+            rlFeedbackView.setRotationY(180f);
+            btnSubmitAnswer.setOnClickListener(view -> {
+                System.out.println("feedback button clicked - flipping card");
+                flipCard();
+            });
 
+            btnBackToQuestion.setOnClickListener(view -> {
+                System.out.println("feedback button clicked - flipping card");
+                flipCard();
+            });
 
             if (!question.usersGuess.isEmpty()) {
                 //TODO: are we 100% displaying the results page here?
+//                btnSubmitAnswer.setVisibility(View.VISIBLE);
+
                 markAnswered();
                 rbtnOption1.setEnabled(false);
                 rbtnOption2.setEnabled(false);
@@ -176,11 +210,11 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
                 markUnanswered();
             }
 
-            btnSubmitAnswer.setOnClickListener(view -> {
-//                Intent intent = new Intent(view.getContext(), QuizActivity.class);
-//                intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
-//                view.getContext().startActivity(intent);
-            });
+//            btnSubmitAnswer.setOnClickListener(view -> {
+////                Intent intent = new Intent(view.getContext(), QuizActivity.class);
+////                intent.putExtra(QuizActivity.EXTRA_QUIZ_ID, quiz.id);
+////                view.getContext().startActivity(intent);
+//            });
         }
 
         private void markUnanswered() {
@@ -208,12 +242,56 @@ public class QuizQuestionAdapter extends RecyclerView.Adapter<QuizQuestionAdapte
 
         private void expandRadioGroup() {
             rgOptions.setVisibility(View.VISIBLE);
-//            btnSubmitAnswer.setVisibility(View.VISIBLE);
+
+
             ObjectAnimator animator = ObjectAnimator.ofFloat(rgOptions, "alpha", 0f, 1f);
             animator.setDuration(500);
             animator.start();
             tvExpandTooltip.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             tvExpandTooltip.setText("Click to collapse");
+        }
+
+        private void flipCard() {
+
+            // Define the rotation animation
+            ObjectAnimator anim = ObjectAnimator.ofFloat(displayFeedback ? rlFeedbackView : rlQuestionView,
+                    "rotationY", 0f, 90f);
+            anim.setDuration(250); // Duration in milliseconds
+
+            ObjectAnimator anim2 = ObjectAnimator.ofFloat(displayFeedback ? rlQuestionView : rlFeedbackView,
+                    "rotationY", -90f, 0);
+            anim2.setDuration(250); // Duration in milliseconds
+
+            // At the midpoint of the animation, toggle visibility
+            anim.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    super.onAnimationStart(animation);
+                    displayFeedback = !displayFeedback;
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+
+                    if (displayFeedback) {
+                        rlQuestionView.setVisibility(View.INVISIBLE);
+                        rlFeedbackView.setVisibility(View.VISIBLE);
+//                        rlFeedbackView.setRotationY(0);
+                    } else {
+                        rlQuestionView.setVisibility(View.VISIBLE);
+//                        rlQuestionView.setRotationY(0);
+
+                        rlFeedbackView.setVisibility(View.GONE);
+                    }
+//                    displayFeedback = !displayFeedback;
+
+                    anim2.start();
+
+                }
+            });
+
+            anim.start();
         }
 
     }
