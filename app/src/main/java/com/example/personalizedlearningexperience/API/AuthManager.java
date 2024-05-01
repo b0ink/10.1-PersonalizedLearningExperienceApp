@@ -68,6 +68,11 @@ public class AuthManager {
     public ArrayList<String> getInterests() {
         ArrayList<String> topics = new ArrayList<>();
         String jsonString = sharedPreferences.getString("interests", null);
+
+        if(jsonString == null){
+            return topics;
+        }
+
         System.out.println(jsonString);
         String result = jsonString.substring(1, jsonString.length() - 1);
 
