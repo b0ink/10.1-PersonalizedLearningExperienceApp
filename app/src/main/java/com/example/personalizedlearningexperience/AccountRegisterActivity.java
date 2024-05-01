@@ -70,6 +70,21 @@ public class AccountRegisterActivity extends AppCompatActivity {
             String confirmPassword = etConfirmPassword.getText().toString().trim();
             String mobile = etMobile.getText().toString().trim();
 
+            if(username.isEmpty() || email.isEmpty() || confirmEmail.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || mobile.isEmpty()){
+                Toast.makeText(AccountRegisterActivity.this, "Please fill out all fields.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(!email.equals(confirmEmail)){
+                Toast.makeText(AccountRegisterActivity.this, "Email addresses do not match. Please ensure both email fields are identical.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(!password.equals(confirmPassword)){
+                Toast.makeText(AccountRegisterActivity.this, "Passwords do not match. Please ensure both password fields are identical.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             Call<ResponsePost> call = RetrofitClient.getInstance()
                     .getAPI()
                     .createUser(username, email, confirmEmail, password, confirmPassword, mobile);
@@ -77,10 +92,16 @@ public class AccountRegisterActivity extends AppCompatActivity {
             call.enqueue(new Callback<ResponsePost>() {
                 @Override
                 public void onResponse(Call<ResponsePost> call, Response<ResponsePost> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(AccountRegisterActivity.this, "Error occurred", Toast.LENGTH_LONG).show();
+
+                    if (!response.isSuccessful() || (response.body() != null && response.body().status.equals("400"))) {
+                        if(response.body() != null){
+                            Toast.makeText(AccountRegisterActivity.this, response.body().message, Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(AccountRegisterActivity.this, "Invalid fields", Toast.LENGTH_LONG).show();
+                        }
                         return;
                     }
+
                     try {
                         String message = response.body().message;
                         System.out.println(message);
