@@ -29,6 +29,20 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/left_arrow" />
 
+        <Button
+            android:id="@+id/btnUpgradeAccount"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#02ff7d"
+            android:text="Upgrade Account"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:cornerRadius="6dp" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
