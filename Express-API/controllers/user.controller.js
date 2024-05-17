@@ -81,7 +81,7 @@ exports.findOne = async (req, res) => {
     }
 
 
-    const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: "1h" });
+    const token = jwt.sign({ id: user.id, username: user.username, email:user.email }, secretKey, { expiresIn: "1h" });
     console.log('logged in');
     return res.header("Authorization", token).json({ message: "Login successful", token });
 }
