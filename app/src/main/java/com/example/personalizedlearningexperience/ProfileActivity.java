@@ -3,6 +3,7 @@ package com.example.personalizedlearningexperience;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -52,6 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         //TODO: check if logged in
 
+
+
+        ((ImageButton)findViewById(R.id.btnGoBack)).setOnClickListener(view -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        });
 
         btnLogout = findViewById(R.id.btnLogout);
         btnShareProfile = findViewById(R.id.btnShareProfile);
