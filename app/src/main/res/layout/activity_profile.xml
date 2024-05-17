@@ -97,7 +97,7 @@
                     android:padding="25dp">
 
                     <TextView
-                        android:id="@+id/tvUsername"
+                        android:id="@+id/tvTotalQuestionsTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Total\nQuestions"
@@ -107,7 +107,7 @@
                         android:textStyle="normal" />
 
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvTotalQuestions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10"
@@ -135,7 +135,7 @@
                     android:padding="25dp">
 
                     <TextView
-                        android:id="@+id/tvUsername"
+                        android:id="@+id/tvCorrectlyAnsweredTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Correctly\nAnswered"
@@ -145,7 +145,7 @@
                         android:textStyle="normal" />
 
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvCorrectlyAnswered"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10"
@@ -174,7 +174,7 @@
                 android:padding="25dp">
 
                 <TextView
-                    android:id="@+id/tvUsername"
+                    android:id="@+id/tvIncorrectAnswersTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Incorrect Answers"
@@ -184,7 +184,7 @@
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/tvEmail"
+                    android:id="@+id/tvIncorrectAnswers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="10"
@@ -197,10 +197,9 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/btnBackToQuestion"
+            android:id="@+id/btnShareProfile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@+id/tvFeedbackText"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="25dp"
