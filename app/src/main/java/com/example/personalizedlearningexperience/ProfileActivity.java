@@ -33,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private Button btnLogout;
     private Button btnShareProfile;
+    private Button btnUpgradeAccount;
 
     private AuthManager authManager;
 
@@ -50,8 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
         authManager = new AuthManager(this);
 
         //TODO: check if logged in
+
+
         btnLogout = findViewById(R.id.btnLogout);
         btnShareProfile = findViewById(R.id.btnShareProfile);
+        btnUpgradeAccount = findViewById(R.id.btnUpgradeAccount);
 
         tvUsername = findViewById(R.id.tvUsername);
         tvEmail = findViewById(R.id.tvEmail);
@@ -66,6 +70,10 @@ public class ProfileActivity extends AppCompatActivity {
             authManager.logout();
             startActivity(new Intent(this, AccountLoginActivity.class));
             finish();
+        });
+
+        btnUpgradeAccount.setOnClickListener(view -> {
+            startActivity(new Intent(this, UpgradeAccountActivity.class));
         });
 
         btnShareProfile.setOnClickListener(view ->{
