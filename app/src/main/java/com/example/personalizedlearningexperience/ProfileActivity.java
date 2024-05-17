@@ -51,8 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         authManager = new AuthManager(this);
 
-        //TODO: check if logged in
-
+        if (authManager.getToken() == null || !authManager.isTokenValid()) {
+            Intent intent = new Intent(this, AccountLoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
         ((ImageButton)findViewById(R.id.btnGoBack)).setOnClickListener(view -> {
