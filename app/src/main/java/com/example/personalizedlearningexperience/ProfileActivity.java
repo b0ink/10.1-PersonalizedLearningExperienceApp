@@ -1,6 +1,7 @@
 package com.example.personalizedlearningexperience;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -101,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my profile!");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://deakin.edu.au/profile/"+authManager.getJwtProperty("username")+"/quizzes");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, BuildConfig.SHARE_URL +authManager.getJwtProperty("username")+"/quizzes");
             startActivity(Intent.createChooser(shareIntent, "Share"));
         });
 
