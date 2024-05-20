@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PersonalizedLearningExperience"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
         <activity
             android:name=".UpgradeAccountActivity"
             android:exported="false" />

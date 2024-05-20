@@ -73,19 +73,14 @@
                             android:textSize="18sp"
                             android:textStyle="normal" />
 
-                        <Button
+                        <com.google.android.gms.wallet.button.PayButton
                             android:id="@+id/btnPurchaseStarter"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="25dp"
                             android:layout_marginTop="25dp"
-                            android:layout_marginRight="25dp"
-                            android:backgroundTint="#02ff7d"
-                            android:text="Purchase"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="6dp" />
+                            android:layout_marginRight="25dp" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -121,19 +116,15 @@
                             android:textSize="18sp"
                             android:textStyle="normal" />
 
-                        <Button
+                        <com.google.android.gms.wallet.button.PayButton
                             android:id="@+id/btnPurchaseIntermediate"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="25dp"
                             android:layout_marginTop="25dp"
-                            android:layout_marginRight="25dp"
-                            android:backgroundTint="#02ff7d"
-                            android:text="Purchase"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="6dp" />
+                            android:layout_marginRight="25dp" />
+
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -169,19 +160,15 @@
                             android:textSize="18sp"
                             android:textStyle="normal" />
 
-                        <Button
+
+                        <com.google.android.gms.wallet.button.PayButton
                             android:id="@+id/btnPurchaseAdvanced"
                             android:layout_width="match_parent"
-                            android:layout_height="55dp"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="25dp"
                             android:layout_marginTop="25dp"
-                            android:layout_marginRight="25dp"
-                            android:backgroundTint="#02ff7d"
-                            android:text="Purchase"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="6dp" />
+                            android:layout_marginRight="25dp" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

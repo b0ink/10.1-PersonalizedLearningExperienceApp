@@ -1,3 +1,6 @@
+import java.util.Properties
+
+
 plugins {
     alias(libs.plugins.androidApplication)
 }
@@ -29,9 +32,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    implementation("com.google.android.gms:play-services-wallet:19.3.0")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
