@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        ((ImageButton)findViewById(R.id.btnGoBack)).setOnClickListener(view -> {
+        ((ImageButton) findViewById(R.id.btnGoBack)).setOnClickListener(view -> {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         });
@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUsername.setText(authManager.getJwtProperty("username"));
         tvEmail.setText(authManager.getJwtProperty("email"));
 
-        btnLogout.setOnClickListener(view->{
+        btnLogout.setOnClickListener(view -> {
             authManager.logout();
             startActivity(new Intent(this, AccountLoginActivity.class));
             finish();
@@ -88,21 +88,21 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        if(intent != null && intent.hasExtra("extra_upgrade")){
+        if (intent != null && intent.hasExtra("extra_upgrade")) {
             String upgradeType = intent.getStringExtra("extra_upgrade");
             tvAccountType.setText("Account type: " + upgradeType);
-        }else{
+        } else {
             tvAccountType.setText("Account type: Basic");
         }
         btnUpgradeAccount.setOnClickListener(view -> {
             startActivity(new Intent(this, UpgradeAccountActivity.class));
         });
 
-        btnShareProfile.setOnClickListener(view ->{
+        btnShareProfile.setOnClickListener(view -> {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my profile!");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, BuildConfig.SHARE_URL +authManager.getJwtProperty("username")+"/quizzes");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, BuildConfig.SHARE_URL + authManager.getJwtProperty("username") + "/quizzes");
             startActivity(Intent.createChooser(shareIntent, "Share"));
         });
 
