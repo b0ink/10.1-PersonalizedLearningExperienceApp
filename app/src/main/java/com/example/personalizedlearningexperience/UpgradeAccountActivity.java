@@ -202,7 +202,7 @@ public class UpgradeAccountActivity extends AppCompatActivity {
                     .getJSONObject("tokenizationData")
                     .getString("token"));
 
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class).putExtra("extra_upgrade", "Starter"));
             finish();
         } catch (JSONException e) {
             Log.e("handlePaymentSuccess", "Error: " + e);

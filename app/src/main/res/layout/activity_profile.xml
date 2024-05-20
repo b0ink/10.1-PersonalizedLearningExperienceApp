@@ -72,6 +72,13 @@
                     android:layout_height="wrap_content"
                     android:text="email@email.com"
                     android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tvAccountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Account type: Basic"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -31,10 +31,12 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvTotalQuestions;
     private TextView tvCorrectlyAnswered;
     private TextView tvIncorrectAnswers;
+    private TextView tvAccountType;
 
     private Button btnLogout;
     private Button btnShareProfile;
     private Button btnUpgradeAccount;
+
 
     private AuthManager authManager;
 
@@ -72,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvTotalQuestions = findViewById(R.id.tvTotalQuestions);
         tvCorrectlyAnswered = findViewById(R.id.tvCorrectlyAnswered);
         tvIncorrectAnswers = findViewById(R.id.tvIncorrectAnswers);
+        tvAccountType = findViewById(R.id.tvAccountType);
 
         tvUsername.setText(authManager.getJwtProperty("username"));
         tvEmail.setText(authManager.getJwtProperty("email"));
@@ -82,16 +85,24 @@ public class ProfileActivity extends AppCompatActivity {
             finish();
         });
 
+
+        Intent intent = getIntent();
+        if(intent != null && intent.hasExtra("extra_upgrade")){
+            String upgradeType = intent.getStringExtra("extra_upgrade");
+            tvAccountType.setText("Account type: " + upgradeType);
+        }else{
+            tvAccountType.setText("Account type: Basic");
+        }
         btnUpgradeAccount.setOnClickListener(view -> {
             startActivity(new Intent(this, UpgradeAccountActivity.class));
         });
 
         btnShareProfile.setOnClickListener(view ->{
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "Check out my profile!");
-            intent.putExtra(Intent.EXTRA_TEXT, "https://deakin.edu.au/profile/"+authManager.getJwtProperty("username")+"/quizzes");
-            startActivity(Intent.createChooser(intent, "Share"));
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out my profile!");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://deakin.edu.au/profile/"+authManager.getJwtProperty("username")+"/quizzes");
+            startActivity(Intent.createChooser(shareIntent, "Share"));
         });
 
         Call<ResponsePost> call = RetrofitClient.getInstance()
